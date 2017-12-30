@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1728484-673a10b04c8950b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1728484-046e4e36613ed814.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1728484-8eb02e8f2bc00532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2017-12-30T09:01:05.504Z">
+<meta property="og:updated_time" content="2017-12-30T10:13:04.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="苹果内购">
 <meta name="twitter:description" content="iOS内购的集成与添加新的内购项目 参考链接: https://www.jianshu.com/p/cd3582e28ddb https://www.jianshu.com/p/0311d906aa11">
@@ -378,7 +378,8 @@
 <h3 id="添加沙盒测试账号"><a href="#添加沙盒测试账号" class="headerlink" title="添加沙盒测试账号"></a>添加沙盒测试账号</h3><h4 id="添加沙盒测试的入口"><a href="#添加沙盒测试的入口" class="headerlink" title="添加沙盒测试的入口"></a>添加沙盒测试的入口</h4><p><img src="https://upload-images.jianshu.io/upload_images/1728484-673a10b04c8950b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
 <h4 id="添加沙盒测试账号-1"><a href="#添加沙盒测试账号-1" class="headerlink" title="添加沙盒测试账号"></a>添加沙盒测试账号</h4><p><img src="https://upload-images.jianshu.io/upload_images/1728484-046e4e36613ed814.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
 <h4 id="具体的测试账号信息填写"><a href="#具体的测试账号信息填写" class="headerlink" title="具体的测试账号信息填写"></a>具体的测试账号信息填写</h4><p><img src="https://upload-images.jianshu.io/upload_images/1728484-8eb02e8f2bc00532.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
-<h3 id="内购代码的具体实现"><a href="#内购代码的具体实现" class="headerlink" title="内购代码的具体实现"></a>内购代码的具体实现</h3><h3 id="内购的注意事项"><a href="#内购的注意事项" class="headerlink" title="内购的注意事项"></a>内购的注意事项</h3><p>(1)一般发生于首次提交app或添加新商品，当你的app通过审核以后，你发现在生产环境下获取不到商品，这是因为app虽然过审核了，但是内购商品还没有正式添加到苹果的服务器里，耐心等待一段时间就可以啦～<br>(2)代码中的_currentProId所填写的是你的购买项目的的ID，这个和第二步创建的内购的productID要一致；本例中是 123。</p>
+<h3 id="内购代码的具体实现"><a href="#内购代码的具体实现" class="headerlink" title="内购代码的具体实现"></a>内购代码的具体实现</h3><p>[内购代码]<a href="/2017/12/30/内购具体实现/" title="内购具体实现">内购具体实现</a></p>
+<h3 id="内购的注意事项"><a href="#内购的注意事项" class="headerlink" title="内购的注意事项"></a>内购的注意事项</h3><p>(1)一般发生于首次提交app或添加新商品，当你的app通过审核以后，你发现在生产环境下获取不到商品，这是因为app虽然过审核了，但是内购商品还没有正式添加到苹果的服务器里，耐心等待一段时间就可以啦～<br>(2)代码中的_currentProId所填写的是你的购买项目的的ID，这个和第二步创建的内购的productID要一致；本例中是 123。</p>
 <p>(3)在监听购买结果后，一定要调用[[SKPaymentQueue defaultQueue] finishTransaction:tran];来允许你从支付队列中移除交易。</p>
 <p>(4)沙盒环境测试appStore内购流程的时候，请使用没越狱的设备。</p>
 <p>(5)请务必使用真机来测试，一切以真机为准。</p>
@@ -433,6 +434,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/30/内购具体实现/" rel="prev" title="内购具体实现">
+                内购具体实现 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -503,7 +508,7 @@
                 alt="半临渊" />
             
               <p class="site-author-name" itemprop="name">半临渊</p>
-              <p class="site-description motion-element" itemprop="description">盲人骑瞎马 夜半临深池</p>
+              <p class="site-description motion-element" itemprop="description">十步杀一人 千里不留行</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -513,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
