@@ -342,38 +342,14 @@
 
       
         
-          
-            <pre><code>Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.
-</code></pre><h2 id="标题设置"><a href="#标题设置" class="headerlink" title="标题设置"></a>标题设置</h2><p>###标题设置方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">常用<span class="comment">#设置标题</span></span><br><span class="line"><span class="comment">#    一阶标题 </span></span><br><span class="line"><span class="comment">##   二阶标题</span></span><br><span class="line"><span class="comment">###  三阶标题</span></span><br></pre></td></tr></table></figure>
-<h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><pre><code>Markdown 标记区块引用是使用类似 email 中用 &gt; 的引用方式。
-</code></pre><blockquote>
-<p>可以在每一行文字前面加上”&gt;” ,也可以在整个段落的前面加上”&gt;”</p>
-<h3 id="区块引用-嵌套使用"><a href="#区块引用-嵌套使用" class="headerlink" title="区块引用-嵌套使用"></a>区块引用-嵌套使用</h3><p>This is the first level of quoting.</p>
-<blockquote>
-<p>This is nested blockquote.</p>
-</blockquote>
-<p>Back to the first level.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This is the first level of quoting.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This is nested blockquote.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Back to the first level.</span><br></pre></td></tr></table></figure>
-<h3 id="区块引用内使用其他Markdown语法"><a href="#区块引用内使用其他Markdown语法" class="headerlink" title="区块引用内使用其他Markdown语法"></a>区块引用内使用其他Markdown语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">## 这是一个标题。</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.   这是第一行列表项。</span><br><span class="line">&gt; 2.   这是第二行列表项。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 给出一些例子代码：</span><br><span class="line">&gt; </span><br><span class="line">&gt;     <span class="built_in">return</span> shell_exec(<span class="string">"echo <span class="variable">$input</span> | <span class="variable">$markdown_script</span>"</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="这是一个标题。"><a href="#这是一个标题。" class="headerlink" title="这是一个标题。"></a>这是一个标题。</h2><ol>
-<li>这是第一行列表项。</li>
-<li>这是第二行列表项。</li>
-</ol>
-<p>给出一些例子代码：</p>
-<pre><code>return shell_exec(&quot;echo $input | $markdown_script&quot;);
-</code></pre></blockquote>
-<h2 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h2><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以.</p>
-<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。<br>你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线</p>
-<pre><code>* * * 
-- - - 
-</code></pre><h2 id="区段元素"><a href="#区段元素" class="headerlink" title="区段元素"></a>区段元素</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>Markdown 支持两种形式的链接语法： 行内式和参考式两种形式。</p>
-<p>This is <a href="http://damoloulan.com/" title="大漠楼兰的博客" target="_blank" rel="noopener">an example</a> inline link.</p>
-<pre><code>This is [an example](http://damoloulan.com/ &quot;大漠楼兰的博客&quot;) inline link.
-</code></pre>
-          
+          <p> Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/29/MarkDown-基本语法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -490,20 +466,14 @@
 
       
         
-          
-            <pre><code>Welcome to [Hexo](https://hexo.io/)! 
-This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. 
-If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
-</code></pre><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br><span class="line">$ hexo n   <span class="string">"我的新发布"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>!<br>This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info.  If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/28/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -595,6 +565,15 @@ If you get any problems when using Hexo, you can find the answer in [troubleshoo
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
