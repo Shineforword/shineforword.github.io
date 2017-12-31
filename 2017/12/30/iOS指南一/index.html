@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="大漠楼兰的博客">
 <meta property="og:description" content="在计算机科学中，锁是一种同步机制，用于在存在多线程的环境中实施对资源的访问限制。你可以理解成它用于排除并发的一种策略。在iOS中，锁分为递归锁、条件锁、分布式锁、一般锁（这里是看着NSLock类里面的分类划分的）。 锁的作用: 就是为了防止在多线程(多任务)的情况下对共享资源(临界资源)的脏读或者脏写。也可以理解为：执行多线程时用于强行限制资源访问的同步机制，即并发控制中保证互斥的要求。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-30T11:13:59.400Z">
+<meta property="og:updated_time" content="2017-12-30T12:00:11.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS指南(锁、锁的性能比较)">
 <meta name="twitter:description" content="在计算机科学中，锁是一种同步机制，用于在存在多线程的环境中实施对资源的访问限制。你可以理解成它用于排除并发的一种策略。在iOS中，锁分为递归锁、条件锁、分布式锁、一般锁（这里是看着NSLock类里面的分类划分的）。 锁的作用: 就是为了防止在多线程(多任务)的情况下对共享资源(临界资源)的脏读或者脏写。也可以理解为：执行多线程时用于强行限制资源访问的同步机制，即并发控制中保证互斥的要求。">
@@ -350,6 +350,7 @@
 <h4 id="方式3-使用gcd"><a href="#方式3-使用gcd" class="headerlink" title="方式3 使用gcd"></a>方式3 使用gcd</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)gcdDemo &#123;</span><br><span class="line">    _testLock = [[TestLock alloc] init];</span><br><span class="line">    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        [_testLock method1];</span><br><span class="line">        sleep(5);</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        sleep(1);</span><br><span class="line">        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">        [_testLock method2];</span><br><span class="line">        dispatch_semaphore_signal(semaphore);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="方式4-使用phtread"><a href="#方式4-使用phtread" class="headerlink" title="方式4 使用phtread"></a>方式4 使用phtread</h4><p>pthread_mutex_t定义在pthread.h，所以记得#include。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (void)pthreadDemo &#123;</span><br><span class="line">    _testLock = [[TestLock alloc] init];</span><br><span class="line">    </span><br><span class="line">    __block pthread_mutex_t mutex;</span><br><span class="line">    pthread_mutex_init(&amp;mutex, NULL);</span><br><span class="line">    </span><br><span class="line">    //线程1</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        [_testLock method1];</span><br><span class="line">        sleep(5);</span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    //线程2</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        sleep(1);</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        [_testLock method2];</span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="锁性能比较"><a href="#锁性能比较" class="headerlink" title="锁性能比较"></a>锁性能比较</h3><p>这里还测试了OSSPinLock(此类已经被os_unfair_lock所替代)。结果如下：<br>synthorize &gt; NSLock &gt; pthread &gt; gcd &gt; os_unfair_lock &gt;OSSPinLock<br>这里：<br>synthorize内部会添加异常处理，所以耗时。<br>pthread_mutex底层API，处理能力不错。<br>gcd系统封装的C代码效果比pthread好。</p>
+<p><a href="https://www.jianshu.com/p/8840b6ecffe7" target="_blank" rel="noopener">https://www.jianshu.com/p/8840b6ecffe7</a></p>
 
       
     </div>
@@ -390,8 +391,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/30/iOS指南二/" rel="prev" title="iOS指南二(线程池)">
-                iOS指南二(线程池) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/30/iOS指南二/" rel="prev" title="线程池原理">
+                线程池原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -473,7 +474,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

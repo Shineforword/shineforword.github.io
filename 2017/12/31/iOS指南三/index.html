@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta name="description" content="简介:如何用HTTP实现长连接[推送技术原理]iOS指南四(推送技术原理)">
 <meta name="keywords" content="iOS面试指南">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程池原理">
-<meta property="og:url" content="http://yoursite.com/2017/12/30/iOS指南二/index.html">
+<meta property="og:title" content="iOS指南三(HTTP 长链 短链)">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南三/index.html">
 <meta property="og:site_name" content="大漠楼兰的博客">
-<meta property="og:description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta property="og:description" content="简介:如何用HTTP实现长连接[推送技术原理]iOS指南四(推送技术原理)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T02:33:12.149Z">
+<meta property="og:updated_time" content="2017-12-31T03:38:58.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程池原理">
-<meta name="twitter:description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta name="twitter:title" content="iOS指南三(HTTP 长链 短链)">
+<meta name="twitter:description" content="简介:如何用HTTP实现长连接[推送技术原理]iOS指南四(推送技术原理)">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/30/iOS指南二/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/iOS指南三/"/>
 
 
 
 
 
-  <title>线程池原理 | 大漠楼兰的博客</title>
+  <title>iOS指南三(HTTP 长链 短链) | 大漠楼兰的博客</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/iOS指南二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南三/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线程池原理</h1>
+          <h1 class="post-title" itemprop="name headline">iOS指南三(HTTP 长链 短链)</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T19:17:10+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T10:35:37+08:00">
+                2017-12-31
               </time>
             
 
@@ -340,20 +340,29 @@
       
 
       
-        <p>在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。<br>所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。</p>
-<p>多线程技术主要解决处理器单元内多个线程执行的问题，它可以显著减少处理器单元的闲置时间，增加处理器单元的吞吐能力。假设一个服务器完成一项任务所需时间为：T1 创建线程时间，T2 在线程中执行任务的时间，T3 销毁线程时间。<br>如果：T1 + T3 远大于 T2，则可以采用线程池，以提高服务器性能。</p>
+        <p>简介:<br>如何用HTTP实现长连接<br>[推送技术原理]<a href="/2017/12/31/iOS指南四/" title="iOS指南四(推送技术原理)">iOS指南四(推送技术原理)</a></p>
 <a id="more"></a>
-<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>一个线程池包括以下四个基本组成部分 ,一个线程池包括以下四个基本组成部分：</p>
+<h2 id="如何用HTTP实现长连接"><a href="#如何用HTTP实现长连接" class="headerlink" title="如何用HTTP实现长连接"></a>如何用HTTP实现长连接</h2><h3 id="HTTP协议与TCP-IP协议的关系"><a href="#HTTP协议与TCP-IP协议的关系" class="headerlink" title="HTTP协议与TCP/IP协议的关系"></a>HTTP协议与TCP/IP协议的关系</h3><p>HTTP的长连接和短连接本质上是TCP长连接和短连接。HTTP属于应用层协议，在传输层使用TCP协议，在网络层使用IP协议。<br>IP协议   主要解决网络路由和寻址问题，<br>TCP协议  主要解决如何在IP层之上可靠的传递数据包，使在网络上的另一端收到发端发出的所有包，并且顺序与发出顺序一致。TCP有可靠，面向连接的特点。</p>
+<h3 id="HTTP协议是无状态的"><a href="#HTTP协议是无状态的" class="headerlink" title="HTTP协议是无状态的"></a>HTTP协议是无状态的</h3><p>HTTP协议是无状态的，指的是协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。也就是说，打开一个服务器上的网页和你之前打开这个服务器上的网页之间没有任何联系。HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保持TCP连接，更不能代表HTTP使用的是UDP协议（无连接）。</p>
+<h3 id="长连接-短连接"><a href="#长连接-短连接" class="headerlink" title="长连接  短连接"></a>长连接  短连接</h3><p>在HTTP/1.0中，默认使用的是短连接。<br>也就是说，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。如果客户端浏览器访问的某个HTML或其他类型的 Web页中包含有其他的Web资源，如JavaScript文件、图像文件、CSS文件等；当浏览器每遇到这样一个Web资源，就会建立一个HTTP会话.</p>
+<p>从 HTTP/1.1起，默认使用长连接，<br>用以保持连接特性。使用长连接的HTTP协议，会在响应头有加入这行代码：</p>
 <blockquote>
-<p>1、线程池管理器（ThreadPool）：用于创建并管理线程池，包括 创建线程池，销毁线程池，添加新任务；<br>2、工作线程（PoolWorker）：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务；<br>3、任务接口（Task）：每个任务必须实现的接口，以供工作线程调度任务的执行，它主要规定了任务的入口，任务执行完后的收尾工作，任务的执行状态等；<br>4、任务队列（taskQueue）：用于存放没有处理的任务。提供一种缓冲机制。   </p>
+<p> Connection:keep-alive</p>
 </blockquote>
-<p>线程池技术正是关注如何缩短或调整T1,T3时间的技术，从而提高服务器程序性能的。它把T1，T3分别安排在服务器程序的启动和结束的时间段或者一些空闲的时间段，这样在服务器程序处理客户请求时，不会有T1，T3的开销了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">线程池不仅调整T1,T3产生的时间段，而且它还显著减少了创建线程的数目，看一个例子：</span><br><span class="line">假设一个服务器一天要处理50000个请求，并且每个请求需要一个单独的线程完成。</span><br><span class="line">在线程池中，线程数一般是固定的，所以产生线程总数不会超过线程池中线程的数目，而如果服务器不利用线程池来处理这些请求则线程总数为50000。</span><br><span class="line">一般线程池大小是远小于50000。所以利用线程池的服务器程序不会为了创建50000而在处理请求时浪费时间，从而提高效率。</span><br><span class="line">代码实现中并没有实现任务接口，而是把Runnable对象加入到线程池管理器（ThreadPool），然后剩下的事情就由线程池管理器（ThreadPool）来完成了</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<h3 id="线程池的优点"><a href="#线程池的优点" class="headerlink" title="线程池的优点"></a>线程池的优点</h3><blockquote>
-<p>1.重用线程池中的线程,减少因对象创建,销毁所带来的性能开销;<br>2.能有效的控制线程的最大并发数,提高系统资源利用率,同时避免过多的资源竞争,避免堵塞;<br>3.能够多线程进行简单的管理,使线程的使用简单、高效。</p>
-</blockquote>
-<p><a href="http://blog.csdn.net/he90227/article/details/52576452" title="线程池原理" target="_blank" rel="noopener">http://blog.csdn.net/he90227/article/details/52576452</a></p>
-<p><a href="http://blog.csdn.net/hsuxu/article/details/8985931" target="_blank" rel="noopener">http://blog.csdn.net/hsuxu/article/details/8985931</a></p>
+<p>在使用长连接的情况下，当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的 TCP连接不会关闭，<br>如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。Keep-Alive不会永久保持连接，<br>它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。实现长连接要客户端和服务端都支持长连接。</p>
+<ul>
+<li>HTTP协议的长连接和短连接，实质上是TCP协议的长连接和短连接。*</li>
+</ul>
+<h2 id="TCP链接"><a href="#TCP链接" class="headerlink" title="TCP链接"></a>TCP链接</h2><p>当网络通信时采用TCP协议时，在真正的读写操作之前，server与client之间必须建立一个连接，当读写操作完成后，双方不再需要这个连接 时它们可以释放这个连接，连接的建立是需要3次握手的，而释放则需要4次握手，所以说每个连接的建立都是需要资源消耗和时间消耗的</p>
+<h3 id="TCP-短链"><a href="#TCP-短链" class="headerlink" title="TCP 短链"></a>TCP 短链</h3><p>我们模拟一下TCP短连接的情况，client向server发起连接请求，server接到请求，然后双方建立连接。client向server 发送消息，server回应client，然后一次读写就完成了，这时候双方任何一个都可以发起close操作，不过一般都是client先发起 close操作。为什么呢，一般的server不会回复完client后立即关闭连接的，当然不排除有特殊的情况。从上面的描述看，短连接一般只会在 client/server间传递一次读写操作<br>短连接的优点是：管理起来比较简单，存在的连接都是有用的连接，不需要额外的控制手段</p>
+<h3 id="TCP-长链"><a href="#TCP-长链" class="headerlink" title="TCP 长链"></a>TCP 长链</h3><p>接下来我们再模拟一下长连接的情况，client向server发起连接，server接受client连接，双方建立连接。Client与server完成一次读写之后，它们之间的连接并不会主动关闭，后续的读写操作会继续使用这个连接。<br>首先说一下TCP/IP详解上讲到的TCP保活功能，保活功能主要为服务器应用提供，服务器应用希望知道客户主机是否崩溃，从而可以代表客户使用资源。如果客户已经消失，使得服务器上保留一个半开放的连接，而服务器又在等待来自客户端的数据，则服务器将应远等待客户端的数据，保活功能就是试图在服务 器端检测到这种半开放的连接。<br>如果一个给定的连接在两小时内没有任何的动作，则服务器就向客户发一个探测报文段，客户主机必须处于以下4个状态之一：<br>客户主机依然正常运行，并从服务器可达。客户的TCP响应正常，而服务器也知道对方是正常的，服务器在两小时后将保活定时器复位。<br>客户主机已经崩溃，并且关闭或者正在重新启动。在任何一种情况下，客户的TCP都没有响应。服务端将不能收到对探测的响应，并在75秒后超时。服务器总共发送10个这样的探测 ，每个间隔75秒。如果服务器没有收到一个响应，它就认为客户主机已经关闭并终止连接。<br>客户主机崩溃并已经重新启动。服务器将收到一个对其保活探测的响应，这个响应是一个复位，使得服务器终止这个连接。<br>客户机正常运行，但是服务器不可达，这种情况与2类似，TCP能发现的就是没有收到探查的响应。</p>
+<h2 id="长连接和短连接的优点和缺点"><a href="#长连接和短连接的优点和缺点" class="headerlink" title="长连接和短连接的优点和缺点"></a>长连接和短连接的优点和缺点</h2><p>由上可以看出，长连接可以省去较多的TCP建立和关闭的操作，减少浪费，节约时间。对于频繁请求资源的客户来说，较适用长连接。</p>
+<p>不过这里存在一个问题，存活功能的探测周期太长，还有就是它只是探测TCP连接的存活，属于比较斯文的做法，遇到恶意的连接时，保活功能就不够使了。</p>
+<p>在长连接的应用场景下，client端一般不会主动关闭它们之间的连接，Client与server之间的连接如果一直不关闭的话，会存在一个问题，随着客户端连接越来越多，server早晚有扛不住的时候，这时候server端需要采取一些策略，如关闭一些长时间没有读写事件发生的连接，这样可 以避免一些恶意连接导致server端服务受损；如果条件再允许就可以以客户端机器为颗粒度，限制每个客户端的最大长连接数，这样可以完全避免某个蛋疼的客户端连累后端服务。</p>
+<p>短连接对于服务器来说管理较为简单，存在的连接都是有用的连接，不需要额外的控制手段。但如果客户请求频繁，将在TCP的建立和关闭操作上浪费时间和带宽。</p>
+<h2 id="什么时候使用长连接-什么时候用短连接"><a href="#什么时候使用长连接-什么时候用短连接" class="headerlink" title="什么时候使用长连接  什么时候用短连接"></a>什么时候使用长连接  什么时候用短连接</h2><p>长连接多用于操作频繁，点对点的通讯，而且连接数不能太多情况</p>
+<p>短链接多用于WEB网站的http服务一般都用，因为长连接对于服务端来说会耗费一定的资源</p>
+<p><a href="http://blog.csdn.net/fangfang_666/article/details/69063227" target="_blank" rel="noopener">http://blog.csdn.net/fangfang_666/article/details/69063227</a></p>
 
       
     </div>
@@ -384,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/30/iOS指南一/" rel="next" title="iOS指南(锁、锁的性能比较)">
-                <i class="fa fa-chevron-left"></i> iOS指南(锁、锁的性能比较)
+              <a href="/2017/12/30/iOS指南二/" rel="next" title="线程池原理">
+                <i class="fa fa-chevron-left"></i> 线程池原理
               </a>
             
           </div>
@@ -394,8 +403,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/31/iOS指南三/" rel="prev" title="iOS指南三(HTTP 长链 短链)">
-                iOS指南三(HTTP 长链 短链) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/31/iOS指南四/" rel="prev" title="iOS指南四(推送技术原理)">
+                iOS指南四(推送技术原理) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -569,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的优点"><span class="nav-number">1.1.</span> <span class="nav-text">线程池的优点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何用HTTP实现长连接"><span class="nav-number">1.</span> <span class="nav-text">如何用HTTP实现长连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议与TCP-IP协议的关系"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP协议与TCP/IP协议的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议是无状态的"><span class="nav-number">1.2.</span> <span class="nav-text">HTTP协议是无状态的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长连接-短连接"><span class="nav-number">1.3.</span> <span class="nav-text">长连接  短连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP链接"><span class="nav-number">2.</span> <span class="nav-text">TCP链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-短链"><span class="nav-number">2.1.</span> <span class="nav-text">TCP 短链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-长链"><span class="nav-number">2.2.</span> <span class="nav-text">TCP 长链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接和短连接的优点和缺点"><span class="nav-number">3.</span> <span class="nav-text">长连接和短连接的优点和缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候使用长连接-什么时候用短连接"><span class="nav-number">4.</span> <span class="nav-text">什么时候使用长连接  什么时候用短连接</span></a></li></ol></div>
             
 
           </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta name="description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
 <meta name="keywords" content="iOS面试指南">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程池原理">
-<meta property="og:url" content="http://yoursite.com/2017/12/30/iOS指南二/index.html">
+<meta property="og:title" content="iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南八/index.html">
 <meta property="og:site_name" content="大漠楼兰的博客">
-<meta property="og:description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta property="og:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T02:33:12.149Z">
+<meta property="og:updated_time" content="2017-12-31T05:36:37.191Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程池原理">
-<meta name="twitter:description" content="在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。 多线程技术主要解决处理器单">
+<meta name="twitter:title" content="iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)">
+<meta name="twitter:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/30/iOS指南二/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/iOS指南八/"/>
 
 
 
 
 
-  <title>线程池原理 | 大漠楼兰的博客</title>
+  <title>iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程) | 大漠楼兰的博客</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/iOS指南二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南八/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线程池原理</h1>
+          <h1 class="post-title" itemprop="name headline">iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T19:17:10+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:06:32+08:00">
+                2017-12-31
               </time>
             
 
@@ -340,20 +340,17 @@
       
 
       
-        <p>在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。<br>所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。</p>
-<p>多线程技术主要解决处理器单元内多个线程执行的问题，它可以显著减少处理器单元的闲置时间，增加处理器单元的吞吐能力。假设一个服务器完成一项任务所需时间为：T1 创建线程时间，T2 在线程中执行任务的时间，T3 销毁线程时间。<br>如果：T1 + T3 远大于 T2，则可以采用线程池，以提高服务器性能。</p>
-<a id="more"></a>
-<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>一个线程池包括以下四个基本组成部分 ,一个线程池包括以下四个基本组成部分：</p>
+        <p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的<br>&lt;!–more– &gt;</p>
+<h2 id="缓存加载方式-imageNamed"><a href="#缓存加载方式-imageNamed" class="headerlink" title="缓存加载方式(imageNamed) :"></a>缓存加载方式(imageNamed) :</h2><p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的,只能由系统自动处理,如果我们需要重复加载一张图片,那这无疑是一种很好的方式,因为系统能很快的从内存的cache找到这张图片,<br>但是试想,如果加载很多很大的图片的时候,内存消耗过大的时候,就会会强制释放内存，即会遇到内存警告(memory warnings).由于在iOS系统中释放图片的内存比较麻烦,所以易产生内存泄露。</p>
+<h2 id="非缓存加载方式-imageWithContentsOfFile"><a href="#非缓存加载方式-imageWithContentsOfFile" class="headerlink" title="非缓存加载方式 (imageWithContentsOfFile) :"></a>非缓存加载方式 (imageWithContentsOfFile) :</h2><p>相比上面的imageNamed这个方法要写的代码多了几行,使用imageWithContentsOfFile的方式加载的图片，图片会被系统以数据的方式进行加载.返回的对象不会保存在缓存中，一旦对象销毁就会释放内存，所以一般不会因为加载图片的方法遇到内存问题.</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>何时用imageNamed ： 图片资源反复使用到，如按钮背景图片的蓝色背景，这些图片要经常用到，而且占用内存少<br>不能用imageNamed ： 图片资源较大，加载到内存后，比较耗费内存资源 ，图片一般只使用一次</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *path =   [[NSBundle mainBundle]pathForResource:filename ofType:@<span class="string">"png"</span>];</span><br><span class="line">[UIImage imageWithContentsOfFile:path]</span><br></pre></td></tr></table></figure>
+<h2 id="app-启动过程"><a href="#app-启动过程" class="headerlink" title="app 启动过程"></a>app 启动过程</h2><h3 id="打开程序"><a href="#打开程序" class="headerlink" title="打开程序"></a>打开程序</h3><h3 id="执行main函数"><a href="#执行main函数" class="headerlink" title="执行main函数"></a>执行main函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import &lt;UIKit/UIKit.h&gt;</span></span><br><span class="line"><span class="comment">#import "AppDelegate.h"</span></span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        <span class="built_in">return</span> UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="执行UIApplicationMain函数"><a href="#执行UIApplicationMain函数" class="headerlink" title="执行UIApplicationMain函数"></a>执行UIApplicationMain函数</h3><p>UIApplicationMain底层实现</p>
 <blockquote>
-<p>1、线程池管理器（ThreadPool）：用于创建并管理线程池，包括 创建线程池，销毁线程池，添加新任务；<br>2、工作线程（PoolWorker）：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务；<br>3、任务接口（Task）：每个任务必须实现的接口，以供工作线程调度任务的执行，它主要规定了任务的入口，任务执行完后的收尾工作，任务的执行状态等；<br>4、任务队列（taskQueue）：用于存放没有处理的任务。提供一种缓冲机制。   </p>
+<p>根据principalClassName传递的类名创建UIApplication对象<br>创建UIApplication代理对象，给UIApplication对象设置代理<br>开启主运行时间循环，处理事件，保持程序一直运行<br>加载info.plist，判断下是否指定了main，如果指定了，就会去加载</p>
 </blockquote>
-<p>线程池技术正是关注如何缩短或调整T1,T3时间的技术，从而提高服务器程序性能的。它把T1，T3分别安排在服务器程序的启动和结束的时间段或者一些空闲的时间段，这样在服务器程序处理客户请求时，不会有T1，T3的开销了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">线程池不仅调整T1,T3产生的时间段，而且它还显著减少了创建线程的数目，看一个例子：</span><br><span class="line">假设一个服务器一天要处理50000个请求，并且每个请求需要一个单独的线程完成。</span><br><span class="line">在线程池中，线程数一般是固定的，所以产生线程总数不会超过线程池中线程的数目，而如果服务器不利用线程池来处理这些请求则线程总数为50000。</span><br><span class="line">一般线程池大小是远小于50000。所以利用线程池的服务器程序不会为了创建50000而在处理请求时浪费时间，从而提高效率。</span><br><span class="line">代码实现中并没有实现任务接口，而是把Runnable对象加入到线程池管理器（ThreadPool），然后剩下的事情就由线程池管理器（ThreadPool）来完成了</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<h3 id="线程池的优点"><a href="#线程池的优点" class="headerlink" title="线程池的优点"></a>线程池的优点</h3><blockquote>
-<p>1.重用线程池中的线程,减少因对象创建,销毁所带来的性能开销;<br>2.能有效的控制线程的最大并发数,提高系统资源利用率,同时避免过多的资源竞争,避免堵塞;<br>3.能够多线程进行简单的管理,使线程的使用简单、高效。</p>
-</blockquote>
-<p><a href="http://blog.csdn.net/he90227/article/details/52576452" title="线程池原理" target="_blank" rel="noopener">http://blog.csdn.net/he90227/article/details/52576452</a></p>
-<p><a href="http://blog.csdn.net/hsuxu/article/details/8985931" target="_blank" rel="noopener">http://blog.csdn.net/hsuxu/article/details/8985931</a></p>
+<h3 id="监听系统事件"><a href="#监听系统事件" class="headerlink" title="监听系统事件"></a>监听系统事件</h3><h4 id="程序加载完毕"><a href="#程序加载完毕" class="headerlink" title="程序加载完毕"></a>程序加载完毕</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</span><br><span class="line"></span><br><span class="line">- 程序获取焦点</span><br><span class="line"></span><br><span class="line"> - (void)applicationDidBecomeActive:(UIApplication *)application </span><br><span class="line"></span><br><span class="line">- 程序进入后台</span><br><span class="line"></span><br><span class="line"> - (void)applicationDidEnterBackground:(UIApplication *)application ;</span><br><span class="line"></span><br><span class="line">- 程序失去焦点</span><br><span class="line"></span><br><span class="line">  - (void)applicationWillResignActive:(UIApplication *)application;</span><br><span class="line"></span><br><span class="line">- 程序从后台回到前台</span><br><span class="line"></span><br><span class="line"> - (void)applicationWillEnterForeground:(UIApplication *)application ;</span><br><span class="line"></span><br><span class="line">- 程序内存警告，可能要终止程序</span><br><span class="line"></span><br><span class="line"> -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application;</span><br><span class="line"></span><br><span class="line">- 程序即将退出</span><br><span class="line"></span><br><span class="line"> - (void)applicationWillTerminate:(UIApplication *)application ;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -384,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/30/iOS指南一/" rel="next" title="iOS指南(锁、锁的性能比较)">
-                <i class="fa fa-chevron-left"></i> iOS指南(锁、锁的性能比较)
+              <a href="/2017/12/31/iOS指南七/" rel="next" title="iOS指南七(获取设备唯一标识符、keychain的使用)">
+                <i class="fa fa-chevron-left"></i> iOS指南七(获取设备唯一标识符、keychain的使用)
               </a>
             
           </div>
@@ -394,8 +391,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/31/iOS指南三/" rel="prev" title="iOS指南三(HTTP 长链 短链)">
-                iOS指南三(HTTP 长链 短链) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/31/iOS指南九/" rel="prev" title="iOS指南九(本地化持久方案)">
+                iOS指南九(本地化持久方案) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -569,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的优点"><span class="nav-number">1.1.</span> <span class="nav-text">线程池的优点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存加载方式-imageNamed"><span class="nav-number">1.</span> <span class="nav-text">缓存加载方式(imageNamed) :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非缓存加载方式-imageWithContentsOfFile"><span class="nav-number">2.</span> <span class="nav-text">非缓存加载方式 (imageWithContentsOfFile) :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用场景"><span class="nav-number">3.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app-启动过程"><span class="nav-number">4.</span> <span class="nav-text">app 启动过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开程序"><span class="nav-number">4.1.</span> <span class="nav-text">打开程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行main函数"><span class="nav-number">4.2.</span> <span class="nav-text">执行main函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行UIApplicationMain函数"><span class="nav-number">4.3.</span> <span class="nav-text">执行UIApplicationMain函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听系统事件"><span class="nav-number">4.4.</span> <span class="nav-text">监听系统事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序加载完毕"><span class="nav-number">4.4.1.</span> <span class="nav-text">程序加载完毕</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
