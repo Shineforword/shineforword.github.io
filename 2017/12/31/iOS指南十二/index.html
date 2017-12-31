@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS面试指南," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。">
+<meta name="keywords" content="iOS面试指南">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重)">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南十二/index.html">
+<meta property="og:site_name" content="大漠楼兰的博客">
+<meta property="og:description" content="Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-31T07:42:57.268Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重)">
+<meta name="twitter:description" content="Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/iOS指南十二/"/>
+
+
+
+
+
+  <title>iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重) | 大漠楼兰的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大漠楼兰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T14:49:55+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。<br><a id="more"></a></p>
+<p>ARC 的工作原理大致是这样：当我们编译源码的时候，编译器会分析源码中每个对象的生命周期，然后基于这些对象的生命周期，来添加相应的引用计数操作代码。</p>
+<p>##前段编译器<br>前端编译器会为“拥有的”每一个对象插入相应的release语句。如果对象的所有权修饰符是__strong，那么它就是被拥有的。如果在某个方法内创建了一个对象，前端编译器会在方法末尾自动插入release语句以销毁它。而类拥有的对象（实例变量/属性）会在dealloc方法内被释放。事实上，你并不需要写dealloc方法或调用父类的dealloc方法，ARC会自动帮你完成一切。此外，由编译器生成的代码甚至会比你自己写的release语句的性能还要好，因为编辑器可以作出一些假设。在ARC中，没有类可以覆盖release方法，也没有调用它的必要。ARC会通过直接使用objc_release来优化调用过程。而对于retain也是同样的方法。ARC会调用objc_retain来取代保留消息。</p>
+<h2 id="ARC优化器"><a href="#ARC优化器" class="headerlink" title="ARC优化器"></a>ARC优化器</h2><p>虽然前端编译器听起来很厉害的样子，但代码中有时仍会出现几个对retain和release的重复调用。ARC优化器负责移除多余的retain和release语句，确保生成的代码运行速度高于手动引用计数的代码。</p>
+<h2 id="MRC"><a href="#MRC" class="headerlink" title="MRC"></a>MRC</h2><p>引用计数（Reference Count）是一个简单而有效的管理对象生命周期的方式。当我们创建一个新对象的时候，它的引用计数为 1，当有一个新的指针指向这个对象时，我们将其引用计数加 1，当某个指针不再指向这个对象是，我们将其引用计数减 1，当对象的引用计数变为 0 时，说明这个对象不再被任何指针指向了，这个时候我们就可以将对象销毁，回收内存。由于引用计数简单有效，除了 Objective-C 语言外，微软的 COM（Component Object Model ）、C++11（C++11 提供了基于引用计数的智能指针 share_prt） 等语言也提供了基于引用计数的内存管理方式。<br>引用计数这种内存管理方式虽然简单，但是手工写大量的操作引用计数的代码不但繁琐，而且容易被遗漏。</p>
+<p>于是苹果在 2011 年引入了 ARC。ARC 顾名思义，是自动帮我们填写引用计数代码的一项功能。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>相对于垃圾回收这类内存管理方案，ARC 不会带来运行时的额外开销，所以对于应用的运行效率不会有影响。相反，由于 ARC 能够深度分析每一个对象的生命周期，它能够做到比人工管理引用计数更加高效。例如在一个函数中，对一个对象刚开始有一个引用计数 +1 的操作，之后又紧接着有一个 -1 的操作，那么编译器就可以把这两个操作都优化掉。</p>
+<p><a href="https://www.jianshu.com/p/a512b19d8729" target="_blank" rel="noopener">ARC的实现原理</a><br><a href="https://www.jianshu.com/p/5fffa67905bb" target="_blank" rel="noopener">ARC</a></p>
+<h2 id="Autorelease对象什么时候释放？"><a href="#Autorelease对象什么时候释放？" class="headerlink" title="Autorelease对象什么时候释放？"></a>Autorelease对象什么时候释放？</h2><p>在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的，而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop.</p>
+<p>在这个 @autoreleasepool block 中只包含了一行代码，这行代码将所有的事件、消息全部交给了 UIApplication 来处理，但是这不是本文关注的重点。<br>需要注意的是：整个 iOS 的应用都是包含在一个自动释放池 block 中的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        <span class="built_in">return</span> UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="autorelease原理"><a href="#autorelease原理" class="headerlink" title="autorelease原理"></a>autorelease原理</h2><p>要搞懂具体原理，则要先要搞清楚autorelease何时会创建。</p>
+<p>我们的程序在main()调用的时候会自动调用一个autorelease，然后在每一个 Runloop， 系统会隐式创建一个Autorelease pool，这样所有的release  pool会构成一个象CallStack一样的一个栈式结构，在每一个Runloop结束时，当前栈顶的 Autorelease  pool（main()里的autorelease）会被销毁，这样这个pool里的每个Object会被release。</p>
+<p>可以把autorelease  pool理解成一个类似父类与子类的关系，main()创建了父类，每个Runloop自动生成的或者开发者自定义的autorelease  pool都会成为该父类的子类。当父类被释放的时候，没有被释放的子类也会被释放，这样所有子类中的对象也会收到release消息。</p>
+<p>那什么是一个Runloop呢？ 一个UI事件，Timer call， delegate call， 一个鼠标事件,键盘按下(MAC OSX),或者iphone上的触摸事件，异步http连接下后当接收完数据时，都会是一个新的Runloop。</p>
+<p>一般来说，消息循环运行一次是毫秒级甚至微秒级的，因此autorelease的效率仍然是非常高的，确实是一个巧妙的设计。</p>
+<p>autorelease和release没什么区别,只是引用计数减一的时机不同而已,autorelease会在对象的使用真正结束的时候才做引用计数减一.</p>
+<h2 id="isa指针作用"><a href="#isa指针作用" class="headerlink" title="isa指针作用"></a>isa指针作用</h2><p>指向他的类对象,从而可以找到对象上的方法</p>
+<p>isa: 对象的isa指向类，类的isa指向元类（meta class），元类isa指向元类的根类。isa帮助一个对象找到它的方法。</p>
+<p>isa：是一个Class 类型的指针. 每个实例对象有个isa的指针,他指向对象的类，而Class里也有个isa的指针, 指向meteClass(元类)。元类保存了类方法的列表。当类方法被调用时，先会从本身查找类方法的实现，如果没有，元类会向他父类查找该方法。</p>
+<p>同时注意的是：元类（meteClass）也是类，它也是对象。元类也有isa指针,它的isa指针最终指向的是一个根元类(root meteClass).根元类的isa指针指向本身，这样形成了一个封闭的内循环。</p>
+<p><a href="http://blog.csdn.net/kesalin/article/details/7211228" target="_blank" rel="noopener">深入浅出Cocoa之类与对象</a></p>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><p>第一种：利用NSDictionary的AllKeys（AllValues）方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">NSArray *dataArray = @[@<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-03"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-04"</span>,@<span class="string">"2014-04-06"</span>,@<span class="string">"2014-04-08"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-05"</span>,@<span class="string">"2014-04-07"</span>,@<span class="string">"2014-04-09"</span>,];  </span><br><span class="line">    NSMutableDictionary *dic = [[NSMutableDictionary alloc]initWithCapacity:0];  </span><br><span class="line">    <span class="keyword">for</span>(NSString *str <span class="keyword">in</span> dataArray)  </span><br><span class="line">    &#123;  </span><br><span class="line">        [dic setValue:str forKey:str];  </span><br><span class="line">    &#125;  </span><br><span class="line">    NSLog(@<span class="string">"%@"</span>,[dic allKeys]);</span><br></pre></td></tr></table></figure></p>
+<p>第二种方法：利用NSSet的AllObjects方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSArray *dataArray = @[@<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-03"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-04"</span>,@<span class="string">"2014-04-06"</span>,@<span class="string">"2014-04-08"</span>,  </span><br><span class="line">                          @<span class="string">"2014-04-05"</span>,@<span class="string">"2014-04-07"</span>,@<span class="string">"2014-04-09"</span>,];  </span><br><span class="line">   NSSet *<span class="built_in">set</span> = [NSSet setWithArray:dataArray];  </span><br><span class="line">   NSLog(@<span class="string">"%@"</span>,[<span class="built_in">set</span> allObjects]);</span><br></pre></td></tr></table></figure></p>
+<p>第三种方法，利用数组的containsObject来去除<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">NSArray *dataArray = @[@<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-03"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-04"</span>,@<span class="string">"2014-04-06"</span>,@<span class="string">"2014-04-08"</span>,  </span><br><span class="line">                           @<span class="string">"2014-04-05"</span>,@<span class="string">"2014-04-07"</span>,@<span class="string">"2014-04-09"</span>,];  </span><br><span class="line">    NSMutableArray *listAry = [[NSMutableArray alloc]init];  </span><br><span class="line">    <span class="keyword">for</span> (NSString *str <span class="keyword">in</span> dataArray) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (![listAry containsObject:str]) &#123;  </span><br><span class="line">            [listAry addObject:str];  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    NSLog(@<span class="string">"%@"</span>,listAry);</span><br></pre></td></tr></table></figure></p>
+<p>第四种方法：利用keyValue<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSArray *dataArray = @[@<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-03"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-01"</span>,@<span class="string">"2014-04-02"</span>,@<span class="string">"2014-04-03"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-04"</span>,@<span class="string">"2014-04-06"</span>,@<span class="string">"2014-04-08"</span>,  </span><br><span class="line">                       @<span class="string">"2014-04-05"</span>,@<span class="string">"2014-04-07"</span>,@<span class="string">"2014-04-09"</span>,];  </span><br><span class="line">dataArray = [dataArray valueForKeyPath:@<span class="string">"@distinctUnionOfObjects.self"</span>];  </span><br><span class="line">NSLog(@<span class="string">"%@"</span>,dataArray);</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://blog.csdn.net/wm9028/article/details/49926535" target="_blank" rel="noopener">http://blog.csdn.net/wm9028/article/details/49926535</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS面试指南/" rel="tag"># iOS面试指南</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/iOS指南十一/" rel="next" title="iOS指南十一(iOS缓存的理解)">
+                <i class="fa fa-chevron-left"></i> iOS指南十一(iOS缓存的理解)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/iOS指南十三/" rel="prev" title="iOS指南十三(NSURLSession与NSURLConnection区别)">
+                iOS指南十三(NSURLSession与NSURLConnection区别) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="半临渊" />
+            
+              <p class="site-author-name" itemprop="name">半临渊</p>
+              <p class="site-description motion-element" itemprop="description">十步杀一人 千里不留行</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Shineforword" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dreamlingclear@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com/" title="Baidu" target="_blank">Baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC优化器"><span class="nav-number">1.</span> <span class="nav-text">ARC优化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MRC"><span class="nav-number">2.</span> <span class="nav-text">MRC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Autorelease对象什么时候释放？"><span class="nav-number">4.</span> <span class="nav-text">Autorelease对象什么时候释放？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autorelease原理"><span class="nav-number">5.</span> <span class="nav-text">autorelease原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isa指针作用"><span class="nav-number">6.</span> <span class="nav-text">isa指针作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组去重"><span class="nav-number">7.</span> <span class="nav-text">数组去重</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">半临渊</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

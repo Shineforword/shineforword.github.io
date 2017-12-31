@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
+<meta name="description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的">
 <meta name="keywords" content="iOS面试指南">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)">
 <meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南八/index.html">
 <meta property="og:site_name" content="大漠楼兰的博客">
-<meta property="og:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
+<meta property="og:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T05:36:37.191Z">
+<meta property="og:updated_time" content="2017-12-31T06:07:47.486Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)">
-<meta name="twitter:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的&amp;lt;!–more– &amp;gt; 缓存加载方式(imageNamed) :使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,">
+<meta name="twitter:description" content="使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的">
 
 
 
@@ -340,7 +340,8 @@
       
 
       
-        <p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的<br>&lt;!–more– &gt;</p>
+        <p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的</p>
+<a id="more"></a>
 <h2 id="缓存加载方式-imageNamed"><a href="#缓存加载方式-imageNamed" class="headerlink" title="缓存加载方式(imageNamed) :"></a>缓存加载方式(imageNamed) :</h2><p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的,只能由系统自动处理,如果我们需要重复加载一张图片,那这无疑是一种很好的方式,因为系统能很快的从内存的cache找到这张图片,<br>但是试想,如果加载很多很大的图片的时候,内存消耗过大的时候,就会会强制释放内存，即会遇到内存警告(memory warnings).由于在iOS系统中释放图片的内存比较麻烦,所以易产生内存泄露。</p>
 <h2 id="非缓存加载方式-imageWithContentsOfFile"><a href="#非缓存加载方式-imageWithContentsOfFile" class="headerlink" title="非缓存加载方式 (imageWithContentsOfFile) :"></a>非缓存加载方式 (imageWithContentsOfFile) :</h2><p>相比上面的imageNamed这个方法要写的代码多了几行,使用imageWithContentsOfFile的方式加载的图片，图片会被系统以数据的方式进行加载.返回的对象不会保存在缓存中，一旦对象销毁就会释放内存，所以一般不会因为加载图片的方法遇到内存问题.</p>
 <h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>何时用imageNamed ： 图片资源反复使用到，如按钮背景图片的蓝色背景，这些图片要经常用到，而且占用内存少<br>不能用imageNamed ： 图片资源较大，加载到内存后，比较耗费内存资源 ，图片一般只使用一次</p>
@@ -474,7 +475,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

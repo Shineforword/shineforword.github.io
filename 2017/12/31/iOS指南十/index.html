@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="markdown," />
+  <meta name="keywords" content="iOS面试指南," />
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
-<meta name="keywords" content="markdown">
+<meta name="description" content="iOS 底层解析weak的实现原理 很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？">
+<meta name="keywords" content="iOS面试指南">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MarkDown 语法">
-<meta property="og:url" content="http://yoursite.com/2017/12/29/MarkDown-基本语法/index.html">
+<meta property="og:title" content="iOS指南十(weak的实现原理、HTTPS的加密原理)">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南十/index.html">
 <meta property="og:site_name" content="大漠楼兰的博客">
-<meta property="og:description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
+<meta property="og:description" content="iOS 底层解析weak的实现原理 很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
-<meta property="og:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
-<meta property="og:updated_time" content="2017-12-30T10:20:57.759Z">
+<meta property="og:updated_time" content="2017-12-31T06:07:23.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MarkDown 语法">
-<meta name="twitter:description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
-<meta name="twitter:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
+<meta name="twitter:title" content="iOS指南十(weak的实现原理、HTTPS的加密原理)">
+<meta name="twitter:description" content="iOS 底层解析weak的实现原理 很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/29/MarkDown-基本语法/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/iOS指南十/"/>
 
 
 
 
 
-  <title>MarkDown 语法 | 大漠楼兰的博客</title>
+  <title>iOS指南十(weak的实现原理、HTTPS的加密原理) | 大漠楼兰的博客</title>
   
 
 
@@ -276,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/MarkDown-基本语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -293,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MarkDown 语法</h1>
+          <h1 class="post-title" itemprop="name headline">iOS指南十(weak的实现原理、HTTPS的加密原理)</h1>
         
 
         <div class="post-meta">
@@ -305,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T18:10:10+08:00">
-                2017-12-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:44:45+08:00">
+                2017-12-31
               </time>
             
 
@@ -343,54 +340,18 @@
       
 
       
-        <p> Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.</p>
+        <p><a href="https://www.jianshu.com/p/13c4fb1cedea" target="_blank" rel="noopener">iOS 底层解析weak的实现原理</a></p>
+<p>很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？</p>
 <a id="more"></a>
-<h2 id="标题设置"><a href="#标题设置" class="headerlink" title="标题设置"></a>标题设置</h2><p>###标题设置方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">常用<span class="comment">#设置标题</span></span><br><span class="line"><span class="comment">#    一阶标题 </span></span><br><span class="line"><span class="comment">##   二阶标题</span></span><br><span class="line"><span class="comment">###  三阶标题</span></span><br></pre></td></tr></table></figure>
-<h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><pre><code>Markdown 标记区块引用是使用类似 email 中用 &gt; 的引用方式。
-</code></pre><blockquote>
-<p>可以在每一行文字前面加上”&gt;” ,也可以在整个段落的前面加上”&gt;”</p>
-<h3 id="区块引用-嵌套使用"><a href="#区块引用-嵌套使用" class="headerlink" title="区块引用-嵌套使用"></a>区块引用-嵌套使用</h3><p>This is the first level of quoting.</p>
-<blockquote>
-<p>This is nested blockquote.</p>
+<h2 id="weak-实现原理的概括"><a href="#weak-实现原理的概括" class="headerlink" title="weak 实现原理的概括"></a>weak 实现原理的概括</h2><p>Runtime维护了一个weak表，用于存储指向某个对象的所有weak指针。weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址（这个地址的值是所指对象指针的地址）数组。</p>
+<h2 id="weak-的实现原理可以概括一下三步："><a href="#weak-的实现原理可以概括一下三步：" class="headerlink" title="weak 的实现原理可以概括一下三步："></a>weak 的实现原理可以概括一下三步：</h2><blockquote>
+<p>初始化时：runtime会调用objc_initWeak函数，初始化一个新的weak指针指向对象的地址。<br>添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表。<br>释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。</p>
 </blockquote>
-<p>Back to the first level.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This is the first level of quoting.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This is nested blockquote.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Back to the first level.</span><br></pre></td></tr></table></figure>
-<h3 id="区块引用内使用其他Markdown语法"><a href="#区块引用内使用其他Markdown语法" class="headerlink" title="区块引用内使用其他Markdown语法"></a>区块引用内使用其他Markdown语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">## 这是一个标题。</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.   这是第一行列表项。</span><br><span class="line">&gt; 2.   这是第二行列表项。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 给出一些例子代码：</span><br><span class="line">&gt; </span><br><span class="line">&gt;     <span class="built_in">return</span> shell_exec(<span class="string">"echo <span class="variable">$input</span> | <span class="variable">$markdown_script</span>"</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="这是一个标题。"><a href="#这是一个标题。" class="headerlink" title="这是一个标题。"></a>这是一个标题。</h2><ol>
-<li>这是第一行列表项。</li>
-<li>这是第二行列表项。</li>
-</ol>
-<p>给出一些例子代码：</p>
-<pre><code>return shell_exec(&quot;echo $input | $markdown_script&quot;);
-</code></pre></blockquote>
-<h2 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h2><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以.</p>
-<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。<br>你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线</p>
-<pre><code>* * * 
-- - - 
-</code></pre><h2 id="区段元素"><a href="#区段元素" class="headerlink" title="区段元素"></a>区段元素</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>Markdown 支持两种形式的链接语法： 行内式和参考式两种形式。</p>
-<p>如果你是要链接到同样主机的资源，你可以使用相对路径</p>
-<p>This is <a href="http://damoloulan.com/" title="大漠楼兰的博客" target="_blank" rel="noopener">an example</a> inline link.</p>
-<pre><code>This is [an example](http://damoloulan.com/ &quot;大漠楼兰的博客&quot;) inline link.
-</code></pre><p>参考式的链接是在链接文字的括号后面再接上另一个方括号，而在第二个方括号里面要填入用以辨识链接的标记：<br>    This is [an example] [id] reference-style link.<br>    [id]: <a href="http://example.com/" target="_blank" rel="noopener">http://example.com/</a>  “Optional Title Here”</p>
-<h2 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h2><p>Markdown 使用星号（<em>）和底线（_）作为标记强调字词的符号，被 </em> 或 <em> 包围的字词会被转成用 <em> 标签包围，用两个 * 或 </em> 包起来的话，则会被转成 <strong>，例如：</strong></em></p>
-<p><em>single asterisks</em><br><em>single underscores</em><br><strong>double asterisks</strong><br><strong>double underscores</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> *single asterisks*</span><br><span class="line"> _single underscores_</span><br><span class="line">**double asterisks**</span><br><span class="line">__double underscores__</span><br></pre></td></tr></table></figure>
-<h3 id="强调可以直接插在文字中间"><a href="#强调可以直接插在文字中间" class="headerlink" title="强调可以直接插在文字中间"></a>强调可以直接插在文字中间</h3><p>un<em>frigging</em>believable</p>
-<pre><code>un*frigging*believable
-</code></pre><p>*this text is surrounded by literal asterisks*</p>
-<h2 id="访问内部链接"><a href="#访问内部链接" class="headerlink" title="访问内部链接"></a>访问内部链接</h2><p>[内购代码]<a href="/2017/12/30/内购具体实现/" title="内购具体实现">内购具体实现</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[内购代码]&#123;% post_link 内购具体实现 %&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="标记代码"><a href="#标记代码" class="headerlink" title="标记代码"></a>标记代码</h2><p>如果要标记一小段行内代码，你可以用反引号把它包起来（`），例如：</p>
-<p>Use the <code>printf()</code> function.</p>
-<pre><code>Use the `printf()` function.
-</code></pre><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。</p>
-<blockquote>
-<p><img src="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg" alt="Alt text"><br>详细叙述如下：<br>一个惊叹号 !<br>接着一个方括号，里面放上图片的替代文字<br>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</p>
-</blockquote>
-<p>到目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <img> 标签。</p>
-<p><img src="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg" alt="Alt text"></p>
+<h2 id="HTTPS的加密原理"><a href="#HTTPS的加密原理" class="headerlink" title="HTTPS的加密原理"></a><a href="https://www.jianshu.com/p/8cf39448daa5" target="_blank" rel="noopener">HTTPS的加密原理</a></h2><p>HTTPS简单来说就是 HTTP 的安全版，相比于HTTP，它在介于 TCP 和 HTTP 之间添加了一层TLS/SSL安全协议。HTTP 协议采用明文传输信息，存在信息窃听、信息篡改和信息劫持的风险，而协议 TLS/SSL 具有身份验证、信息加密和完整性校验的功能，可以避免此类问题，因此我们可以简单的认为HTTPS就是使用 TLS/SSL 加密的 HTTP 协议。下面我们就介绍在HTTPS加密过程中采用过的若干加密方案。</p>
+<p><em>HTTPS其实就是通过服务端证书非对称加密的方式实现双方身份的验证，第一次客户端返回给服务端的对称密钥通过服务端提供的非对称密钥进行了加密，然后双方数据的传输都用客户端生成的对称密钥处理，这样仅是第一次获取密钥时速度稍慢，但之后的处理都是对称加解密速度。</em></p>
+<h3 id="加密算法"><a href="#加密算法" class="headerlink" title="加密算法"></a>加密算法</h3><p>1.对称加密<br>使用相同的密钥进行加密和解密。对称加密使用简单，计算量小，加密和解密过程较快，常见的对称加密算法有DES，3DES，lDEA，AES，RC4等。<br>2.非对称加密<br>与对称加密不同，其加密算法需要两个密钥：公开密钥（public key）和私有密钥（private key），两者是一对的。公钥负责加密，私钥负责解密。非对称加密相比对称加密安全性好，但加密和解密花费时间长、速度慢，只适合对少量数据进行加密。常见的非对称加密算法有RSA，ECC，DSA(数字签名)等。<br>3.Hash算法<br>将任意长度的数据映射为固定长度且唯一的hash值,并且不能通过这个hash值重新计算出原始数据，如果原始数据有任何修改，随后的哈希都将产生不同的值，因此Hash算法经常被用在检验数据的完整性，常用的算法有MD2，MD4，MD5，SHA等。</p>
+<p>###<br>1.对称加密 这个方案是极不安全的，一旦该通信被人劫持，就可以轻易的根据密钥解密数据。<br><a href="https://upload-images.jianshu.io/upload_images/4591091-96ac75ddf9cfa9f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/485" target="_blank" rel="noopener"></a><br>2.非对称加密<br>因为私钥在服务端手中，即使通信过程中被人劫持了信息，没有密钥，劫持者没有私钥也无法解密数据。这种方法似乎是安全的（后面会讲述这个方案存在的隐患），但是非对称加密耗时耗资源，影响用户体验，因此不推荐使用非对称加密。<br><a href="https://upload-images.jianshu.io/upload_images/4591091-4093670f6790e2b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/652" target="_blank" rel="noopener"></a><br>3.对称与非对称加密结合方案<br>由之前可知，对称加密的不安全性主要体现在密钥容易在通信过程中被人劫持，那么我们只要从密钥下手，使用非对称加密来加密这个对称密钥就可以了。但问题又来了，这里又用对称加密，又用非对称加密，岂不是更耗时耗资源么？<br>其实不然，因为非对称加密仅仅在第一次客户端请求时才会使用，当服务端获取到了客户端的公钥后，就不必重新使用非对称私钥解密获取对称密钥了。<br><a href="https://upload-images.jianshu.io/upload_images/4591091-1522e54285a7b3ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/691" target="_blank" rel="noopener"></a><br>乍看之下，上面的方案既安全，又快速。但是还是存在着被攻击的可能，那就是中间人攻击。客户端并不能确定请求到的服务端公钥是否是真的来自于服务端，也许客户端在向服务器请求公钥的过程中就已经被人攻击，客户端获取到的公钥也可能是中间人伪造的。<br><a href="https://upload-images.jianshu.io/upload_images/4591091-4384bba901bb22fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" target="_blank" rel="noopener"></a></p>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>为了避免中间人攻击，客户端需要确保请求到的公钥是目标服务器提供的，该公钥不能被伪造，这时候就用到了证书，证书里面包含了网站地址，加密公钥，以及证书的颁发机构等信息。客户端获取到证书后，会验证证书的有效性（有效期，颁发机构）。关于证书的机制，</p>
 
       
     </div>
@@ -408,7 +369,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/markdown/" rel="tag"># markdown</a>
+            <a href="/tags/iOS面试指南/" rel="tag"># iOS面试指南</a>
           
         </div>
       
@@ -421,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/28/hello-world/" rel="next" title="Hexo 基本操作">
-                <i class="fa fa-chevron-left"></i> Hexo 基本操作
+              <a href="/2017/12/31/iOS指南九/" rel="next" title="iOS指南九(本地化持久方案)">
+                <i class="fa fa-chevron-left"></i> iOS指南九(本地化持久方案)
               </a>
             
           </div>
@@ -431,8 +392,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/30/苹果内购/" rel="prev" title="苹果内购">
-                苹果内购 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/31/iOS指南十一/" rel="prev" title="iOS指南十一(iOS缓存的理解)">
+                iOS指南十一(iOS缓存的理解) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -606,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题设置"><span class="nav-number">1.</span> <span class="nav-text">标题设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用"><span class="nav-number">2.</span> <span class="nav-text">区块引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区块引用-嵌套使用"><span class="nav-number">2.1.</span> <span class="nav-text">区块引用-嵌套使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块引用内使用其他Markdown语法"><span class="nav-number">2.2.</span> <span class="nav-text">区块引用内使用其他Markdown语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这是一个标题。"><span class="nav-number">3.</span> <span class="nav-text">这是一个标题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区块"><span class="nav-number">4.</span> <span class="nav-text">代码区块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线"><span class="nav-number">5.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区段元素"><span class="nav-number">6.</span> <span class="nav-text">区段元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">6.1.</span> <span class="nav-text">链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强调"><span class="nav-number">7.</span> <span class="nav-text">强调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强调可以直接插在文字中间"><span class="nav-number">7.1.</span> <span class="nav-text">强调可以直接插在文字中间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问内部链接"><span class="nav-number">8.</span> <span class="nav-text">访问内部链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记代码"><span class="nav-number">9.</span> <span class="nav-text">标记代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片"><span class="nav-number">10.</span> <span class="nav-text">图片</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#weak-实现原理的概括"><span class="nav-number">1.</span> <span class="nav-text">weak 实现原理的概括</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weak-的实现原理可以概括一下三步："><span class="nav-number">2.</span> <span class="nav-text">weak 的实现原理可以概括一下三步：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS的加密原理"><span class="nav-number">3.</span> <span class="nav-text">HTTPS的加密原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加密算法"><span class="nav-number">3.1.</span> <span class="nav-text">加密算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书"><span class="nav-number">3.2.</span> <span class="nav-text">证书</span></a></li></ol></li></ol></div>
             
 
           </div>

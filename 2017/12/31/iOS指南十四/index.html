@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="markdown," />
+  <meta name="keywords" content="iOS面试指南," />
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
-<meta name="keywords" content="markdown">
+<meta name="description" content="drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。这个方法的主要作用是根据传入的 rect 来绘制图像">
+<meta name="keywords" content="iOS面试指南">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MarkDown 语法">
-<meta property="og:url" content="http://yoursite.com/2017/12/29/MarkDown-基本语法/index.html">
+<meta property="og:title" content="iOS指南十四(使用drawRect有什么影响 )">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/iOS指南十四/index.html">
 <meta property="og:site_name" content="大漠楼兰的博客">
-<meta property="og:description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
+<meta property="og:description" content="drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。这个方法的主要作用是根据传入的 rect 来绘制图像">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
-<meta property="og:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
-<meta property="og:updated_time" content="2017-12-30T10:20:57.759Z">
+<meta property="og:updated_time" content="2017-12-31T07:53:35.017Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MarkDown 语法">
-<meta name="twitter:description" content="Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.">
-<meta name="twitter:image" content="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg">
+<meta name="twitter:title" content="iOS指南十四(使用drawRect有什么影响 )">
+<meta name="twitter:description" content="drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。这个方法的主要作用是根据传入的 rect 来绘制图像">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/29/MarkDown-基本语法/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/iOS指南十四/"/>
 
 
 
 
 
-  <title>MarkDown 语法 | 大漠楼兰的博客</title>
+  <title>iOS指南十四(使用drawRect有什么影响 ) | 大漠楼兰的博客</title>
   
 
 
@@ -276,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/MarkDown-基本语法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十四/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -293,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MarkDown 语法</h1>
+          <h1 class="post-title" itemprop="name headline">iOS指南十四(使用drawRect有什么影响 )</h1>
         
 
         <div class="post-meta">
@@ -305,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T18:10:10+08:00">
-                2017-12-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T15:45:21+08:00">
+                2017-12-31
               </time>
             
 
@@ -343,54 +340,12 @@
       
 
       
-        <p> Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.</p>
+        <p>drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。<br>这个方法的主要作用是根据传入的 rect 来绘制图像 <a href="https://developer.apple.com/documentation/uikit/uiview#//apple_ref/occ/instm/UIView/drawRect:" target="_blank" rel="noopener">参见文档</a>. 这个方法的默认实现没有做任何事情, 我们可以在这个方法中使用 Core Graphics 和 UIKit 来绘制视图的内容.<br>这个方法的调用机制也是非常特别. 当你调用 setNeedsDisplay 方法时, UIKit 将会把当前图层标记为 dirty, 但还是会显示原来的内容, 直到下一次的视图渲染周期, 才会为标记为 dirty 的图层重新建立 Core Graphics 上下文, 然后将内存中的数据恢复出来, 再使用 CGContextRef 进行绘制.</p>
 <a id="more"></a>
-<h2 id="标题设置"><a href="#标题设置" class="headerlink" title="标题设置"></a>标题设置</h2><p>###标题设置方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">常用<span class="comment">#设置标题</span></span><br><span class="line"><span class="comment">#    一阶标题 </span></span><br><span class="line"><span class="comment">##   二阶标题</span></span><br><span class="line"><span class="comment">###  三阶标题</span></span><br></pre></td></tr></table></figure>
-<h2 id="区块引用"><a href="#区块引用" class="headerlink" title="区块引用"></a>区块引用</h2><pre><code>Markdown 标记区块引用是使用类似 email 中用 &gt; 的引用方式。
-</code></pre><blockquote>
-<p>可以在每一行文字前面加上”&gt;” ,也可以在整个段落的前面加上”&gt;”</p>
-<h3 id="区块引用-嵌套使用"><a href="#区块引用-嵌套使用" class="headerlink" title="区块引用-嵌套使用"></a>区块引用-嵌套使用</h3><p>This is the first level of quoting.</p>
+<h2 id="使用drawRect有什么影响"><a href="#使用drawRect有什么影响" class="headerlink" title="使用drawRect有什么影响"></a>使用drawRect有什么影响</h2><p><a href="https://www.jianshu.com/p/d0d3f6b5a1b0" target="_blank" rel="noopener">https://www.jianshu.com/p/d0d3f6b5a1b0</a><br>这个方法的影响在于有touch event的时候之后，会重新绘制，很多这样的按钮的话就会比较影响效率。<br>以下都会被调用</p>
 <blockquote>
-<p>This is nested blockquote.</p>
+<p>1、如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。drawRect 掉用是在Controller-&gt;loadView, Controller-&gt;viewDidLoad 两方法之后掉用的.所以不用担心在 控制器中,这些View的drawRect就开始画了.这样可以在控制器中设置一些值给View(如果这些View draw的时候需要用到某些变量 值).<br>2、该方法在调用sizeToFit后被调用，所以可以先调用sizeToFit计算出size。然后系统自动调用drawRect:方法。<br>3、通过设置contentMode属性值为UIViewContentModeRedraw。那么将在每次设置或更改frame的时候自动调用drawRect:。<br>4、直接调用setNeedsDisplay，或者setNeedsDisplayInRect:触发drawRect:，但是有个前提条件是rect不能为0。</p>
 </blockquote>
-<p>Back to the first level.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This is the first level of quoting.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This is nested blockquote.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Back to the first level.</span><br></pre></td></tr></table></figure>
-<h3 id="区块引用内使用其他Markdown语法"><a href="#区块引用内使用其他Markdown语法" class="headerlink" title="区块引用内使用其他Markdown语法"></a>区块引用内使用其他Markdown语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">## 这是一个标题。</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; 1.   这是第一行列表项。</span><br><span class="line">&gt; 2.   这是第二行列表项。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 给出一些例子代码：</span><br><span class="line">&gt; </span><br><span class="line">&gt;     <span class="built_in">return</span> shell_exec(<span class="string">"echo <span class="variable">$input</span> | <span class="variable">$markdown_script</span>"</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="这是一个标题。"><a href="#这是一个标题。" class="headerlink" title="这是一个标题。"></a>这是一个标题。</h2><ol>
-<li>这是第一行列表项。</li>
-<li>这是第二行列表项。</li>
-</ol>
-<p>给出一些例子代码：</p>
-<pre><code>return shell_exec(&quot;echo $input | $markdown_script&quot;);
-</code></pre></blockquote>
-<h2 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h2><p>要在 Markdown 中建立代码区块很简单，只要简单地缩进 4 个空格或是 1 个制表符就可以.</p>
-<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。<br>你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线</p>
-<pre><code>* * * 
-- - - 
-</code></pre><h2 id="区段元素"><a href="#区段元素" class="headerlink" title="区段元素"></a>区段元素</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>Markdown 支持两种形式的链接语法： 行内式和参考式两种形式。</p>
-<p>如果你是要链接到同样主机的资源，你可以使用相对路径</p>
-<p>This is <a href="http://damoloulan.com/" title="大漠楼兰的博客" target="_blank" rel="noopener">an example</a> inline link.</p>
-<pre><code>This is [an example](http://damoloulan.com/ &quot;大漠楼兰的博客&quot;) inline link.
-</code></pre><p>参考式的链接是在链接文字的括号后面再接上另一个方括号，而在第二个方括号里面要填入用以辨识链接的标记：<br>    This is [an example] [id] reference-style link.<br>    [id]: <a href="http://example.com/" target="_blank" rel="noopener">http://example.com/</a>  “Optional Title Here”</p>
-<h2 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h2><p>Markdown 使用星号（<em>）和底线（_）作为标记强调字词的符号，被 </em> 或 <em> 包围的字词会被转成用 <em> 标签包围，用两个 * 或 </em> 包起来的话，则会被转成 <strong>，例如：</strong></em></p>
-<p><em>single asterisks</em><br><em>single underscores</em><br><strong>double asterisks</strong><br><strong>double underscores</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> *single asterisks*</span><br><span class="line"> _single underscores_</span><br><span class="line">**double asterisks**</span><br><span class="line">__double underscores__</span><br></pre></td></tr></table></figure>
-<h3 id="强调可以直接插在文字中间"><a href="#强调可以直接插在文字中间" class="headerlink" title="强调可以直接插在文字中间"></a>强调可以直接插在文字中间</h3><p>un<em>frigging</em>believable</p>
-<pre><code>un*frigging*believable
-</code></pre><p>*this text is surrounded by literal asterisks*</p>
-<h2 id="访问内部链接"><a href="#访问内部链接" class="headerlink" title="访问内部链接"></a>访问内部链接</h2><p>[内购代码]<a href="/2017/12/30/内购具体实现/" title="内购具体实现">内购具体实现</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[内购代码]&#123;% post_link 内购具体实现 %&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="标记代码"><a href="#标记代码" class="headerlink" title="标记代码"></a>标记代码</h2><p>如果要标记一小段行内代码，你可以用反引号把它包起来（`），例如：</p>
-<p>Use the <code>printf()</code> function.</p>
-<pre><code>Use the `printf()` function.
-</code></pre><h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。</p>
-<blockquote>
-<p><img src="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg" alt="Alt text"><br>详细叙述如下：<br>一个惊叹号 !<br>接着一个方括号，里面放上图片的替代文字<br>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</p>
-</blockquote>
-<p>到目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <img> 标签。</p>
-<p><img src="http://pic.jj20.com/up/allimg/911/021616153629/160216153629-1.jpg" alt="Alt text"></p>
 
       
     </div>
@@ -408,7 +363,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/markdown/" rel="tag"># markdown</a>
+            <a href="/tags/iOS面试指南/" rel="tag"># iOS面试指南</a>
           
         </div>
       
@@ -421,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/28/hello-world/" rel="next" title="Hexo 基本操作">
-                <i class="fa fa-chevron-left"></i> Hexo 基本操作
+              <a href="/2017/12/31/iOS指南十三/" rel="next" title="iOS指南十三(NSURLSession与NSURLConnection区别)">
+                <i class="fa fa-chevron-left"></i> iOS指南十三(NSURLSession与NSURLConnection区别)
               </a>
             
           </div>
@@ -430,10 +385,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/30/苹果内购/" rel="prev" title="苹果内购">
-                苹果内购 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题设置"><span class="nav-number">1.</span> <span class="nav-text">标题设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区块引用"><span class="nav-number">2.</span> <span class="nav-text">区块引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区块引用-嵌套使用"><span class="nav-number">2.1.</span> <span class="nav-text">区块引用-嵌套使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区块引用内使用其他Markdown语法"><span class="nav-number">2.2.</span> <span class="nav-text">区块引用内使用其他Markdown语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这是一个标题。"><span class="nav-number">3.</span> <span class="nav-text">这是一个标题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码区块"><span class="nav-number">4.</span> <span class="nav-text">代码区块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线"><span class="nav-number">5.</span> <span class="nav-text">分割线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区段元素"><span class="nav-number">6.</span> <span class="nav-text">区段元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">6.1.</span> <span class="nav-text">链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强调"><span class="nav-number">7.</span> <span class="nav-text">强调</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强调可以直接插在文字中间"><span class="nav-number">7.1.</span> <span class="nav-text">强调可以直接插在文字中间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问内部链接"><span class="nav-number">8.</span> <span class="nav-text">访问内部链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记代码"><span class="nav-number">9.</span> <span class="nav-text">标记代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片"><span class="nav-number">10.</span> <span class="nav-text">图片</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用drawRect有什么影响"><span class="nav-number">1.</span> <span class="nav-text">使用drawRect有什么影响</span></a></li></ol></div>
             
 
           </div>
