@@ -272,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十四/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/设计模式MVVM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -291,7 +291,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南十四/" itemprop="url">iOS指南十四(使用drawRect有什么影响 )</a></h1>
+                <a class="post-title-link" href="/2018/01/01/设计模式MVVM/" itemprop="url">设计模式MVVM</a></h1>
         
 
         <div class="post-meta">
@@ -303,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T15:45:21+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T22:50:26+08:00">
+                2018-01-01
               </time>
             
 
@@ -342,10 +342,10 @@
 
       
         
-          <p>drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。<br>这个方法的主要作用是根据传入的 rect 来绘制图像 <a href="https://developer.apple.com/documentation/uikit/uiview#//apple_ref/occ/instm/UIView/drawRect:" target="_blank" rel="noopener">参见文档</a>. 这个方法的默认实现没有做任何事情, 我们可以在这个方法中使用 Core Graphics 和 UIKit 来绘制视图的内容.<br>这个方法的调用机制也是非常特别. 当你调用 setNeedsDisplay 方法时, UIKit 将会把当前图层标记为 dirty, 但还是会显示原来的内容, 直到下一次的视图渲染周期, 才会为标记为 dirty 的图层重新建立 Core Graphics 上下文, 然后将内存中的数据恢复出来, 再使用 CGContextRef 进行绘制.</p>
+          <p>MVVM本质上也是从MVC中派生出来的，它是一个精心优化的MVC架构。它把数据加工的任务从Controller中解放了出来，使得Controller只需要专注于数据调配的工作，ViewModel则去负责数据加工并通过通知机制让View响应ViewModel的改变。大部分MVVM架构都会使用ReactiveCocoa，ReactiveCocoa带来了信号通知效果。<br>当然MVVM也有缺点，数据绑定机制让调试更困难，界面上出现的bug，可能是view的代码有问题，也可能是model有问题。数据绑定机制让一个位置的bug快速传递到其它位置上，定位原始出问题的地方不那么容易。而且数据绑定需要花费更大的内存。MVVM的学习和开发成本也很高，大家对它不熟悉，基于绑定机制进行编程需要一定时间的学习才能上手。<br><a href="https://github.com/lovemo/MVVMFramework/tree/master/source" target="_blank" rel="noopener">MVVMFramework</a><br><a href="https://github.com/lovemo/MVVMFramework" target="_blank" rel="noopener"></a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南十四/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/设计模式MVVM/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -396,7 +396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十三/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/设计模式MVC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -415,7 +415,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南十三/" itemprop="url">iOS指南十三(NSURLSession与NSURLConnection区别)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/设计模式MVC/" itemprop="url">设计模式MVC</a></h1>
         
 
         <div class="post-meta">
@@ -427,8 +427,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T15:36:38+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T22:50:02+08:00">
+                2018-01-01
               </time>
             
 
@@ -466,10 +466,10 @@
 
       
         
-          <p>NSURLSession是NSURLConnection的替代者，在2013年苹果全球开发者大会（WWDC2013）随ios7一起发布，是对NSURLConnection进行了重构优化后的新的网络访问接口。从iOS9.0开始， NSURLConnection中发送请求的两个方法已过期（同步请求，异步请求），初始化网络连接（initWithRequest: delegate:）的方法也被设置为过期，系统不再推荐使用，建议使用NSURLSession发送网络请求。<br><a href="http://www.cnblogs.com/kakaluote123/articles/5426923.html" target="_blank" rel="noopener">http://www.cnblogs.com/kakaluote123/articles/5426923.html</a><br>
+          <p><a href="https://www.cnblogs.com/QianChia/p/5771082.html" target="_blank" rel="noopener">MVC 架构模式</a><br>MVC 即 Modal View Controller（模型 视图 控制器），是 Xerox PARC 在 20 世纪 80 年代为编程语言 Smalltalk－80 发明的一种软件设计模式，至今已广泛应用于用户交互应用程序中。其用意在于将数据与视图分离开来。在 iOS 开发中 MVC 的机制被使用的淋漓尽致，充分理解 iOS 的 MVC 模式，有助于我们程序的组织合理性<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南十三/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/设计模式MVC/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -520,7 +520,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/性能优化内存优化常用方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -539,7 +539,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南十二/" itemprop="url">iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/性能优化内存优化常用方法/" itemprop="url">性能优化内存优化常用方法</a></h1>
         
 
         <div class="post-meta">
@@ -551,8 +551,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T14:49:55+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T22:43:41+08:00">
+                2018-01-01
               </time>
             
 
@@ -590,10 +590,10 @@
 
       
         
-          <p>Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。<br>
+          <p><a href="http://blog.csdn.net/sinat_20940101/article/details/51906407" target="_blank" rel="noopener">iOS 25个性能优化/内存优化常用方法</a><br><a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="noopener">iOS 保持界面流畅的技巧</a><br><a href="https://tech.meituan.com/SharkSDK.html" target="_blank" rel="noopener">美团点评移动网络优化实践</a><br><a href="https://www.jianshu.com/p/5eeeabfcdbc4" target="_blank" rel="noopener">iOS 性能优化总结</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南十二/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/性能优化内存优化常用方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -644,7 +644,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十一/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/FMDB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -663,7 +663,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南十一/" itemprop="url">iOS指南十一(iOS缓存的理解)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/FMDB/" itemprop="url">FMDB</a></h1>
         
 
         <div class="post-meta">
@@ -675,8 +675,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T14:19:46+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T22:42:40+08:00">
+                2018-01-01
               </time>
             
 
@@ -714,10 +714,129 @@
 
       
         
-          <p><a href="http://www.cnblogs.com/qiqibo/p/3520635.html" target="_blank" rel="noopener">iOS缓存机制详解</a><br>应用需要离线工作的主要原因就是改善应用所表现出的性能。将应用内容缓存起来就可以支持离线。我们可以用两种不同的缓存来使应用离线工作。第一种是<strong>按需缓存</strong>，这种情况下应用缓存起请求应答，就和Web浏览器的工作原理一样；第二种是<strong>预缓存</strong>，这种情况是缓存全部内容（或者最近n条记录）以便离线访问。</p>
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/即时通讯AsyncSocket消息信封/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/01/即时通讯AsyncSocket消息信封/" itemprop="url">即时通讯AsyncSocket消息信封</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T21:47:51+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/emsg/emsg_simple_ios" target="_blank" rel="noopener">消息信封示例</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南十一/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/即时通讯AsyncSocket消息信封/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -768,7 +887,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/即时通讯AsyncSocket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -787,7 +906,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南十/" itemprop="url">iOS指南十(weak的实现原理、HTTPS的加密原理)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/即时通讯AsyncSocket/" itemprop="url">即时通讯AsyncSocket</a></h1>
         
 
         <div class="post-meta">
@@ -799,8 +918,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:44:45+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T21:09:45+08:00">
+                2018-01-01
               </time>
             
 
@@ -838,11 +957,10 @@
 
       
         
-          <p><a href="https://www.jianshu.com/p/13c4fb1cedea" target="_blank" rel="noopener">iOS 底层解析weak的实现原理</a></p>
-<p>很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？</p>
+          <p>AsyncSocket:第三方开源库，首选方式，也是在开发项目中经常会用到的。选择AsyncSocket的原因：iphone的CFNetwork编程比较复杂。使用AsyncSocket开源库来开发相对较简单，帮助我们封装了很多东西。<br><a href="https://github.com/emsg/emsg_simple_ios" target="_blank" rel="noopener">iOS即时通讯示例https://github.com/emsg/emsg_simple_ios</a><br>其他iOS中Socket编程的方式:<br>BSD Socket: 是UNIX系统中通用的网络接口，它不仅支持各种不同的网络类型，而且也是一种内部进程之间的通信机制。而iOS系统其实本质就是UNIX，所以可以用，但是比较复杂。<br>CFSocket:CFSocket是苹果提供给我们的使用Socket的方式，但是用起来还是会不太顺手。当然想使用的话，可以细细研究一下。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南十/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/即时通讯AsyncSocket/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -893,7 +1011,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南九/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/iOS基础面试题汇总/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -912,7 +1030,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南九/" itemprop="url">iOS指南九(本地化持久方案)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/iOS基础面试题汇总/" itemprop="url">iOS基础面试题汇总</a></h1>
         
 
         <div class="post-meta">
@@ -924,8 +1042,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:25:40+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T20:50:20+08:00">
+                2018-01-01
               </time>
             
 
@@ -963,10 +1081,10 @@
 
       
         
-          <p><a href="https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html" target="_blank" rel="noopener">iOS应用架构谈 本地持久化方案及动态部署</a><br>在有需要持久化需求的时候，我们有非常多的方案可供选择：NSUserDefault、KeyChain、File，以及基于数据库的无数子方案。因此，当有需要持久化的需求的时候，我们首先考虑的是应该采用什么手段去进行持久化。<br>
+          <p><a href="https://www.jianshu.com/p/9b40c7a8ca52" target="_blank" rel="noopener">iOS面试题汇总</a></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南九/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/iOS基础面试题汇总/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1017,7 +1135,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南八/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/Scoket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -1036,7 +1154,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南八/" itemprop="url">iOS指南八([UIImage imageNamed:] [UIImage imageWithContentsOfFile]、app启动过程)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/Scoket/" itemprop="url">Scoket</a></h1>
         
 
         <div class="post-meta">
@@ -1048,8 +1166,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:06:32+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T20:26:43+08:00">
+                2018-01-01
               </time>
             
 
@@ -1087,10 +1205,12 @@
 
       
         
-          <p>使用imageNamed这个方法生成的UIImage对象,会在应用的bundle中寻找图片,如果找到则Cache到系统缓存中,作为内存的cache,而程序员是无法操作cache的</p>
+          <h2 id="1-Scoket-概念"><a href="#1-Scoket-概念" class="headerlink" title="1. Scoket 概念"></a>1. <a href="http://blog.csdn.net/yeyuangen/article/details/6799575" target="_blank" rel="noopener">Scoket 概念</a></h2><p>套接字（socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。它是网络通信过程中端点的抽象表示，<br>包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。</p>
+<pre><code>应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP／IP协议交互提供了套接字(Socket)接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南八/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/Scoket/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1141,7 +1261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南七/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程六/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -1160,7 +1280,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南七/" itemprop="url">iOS指南七(获取设备唯一标识符、keychain的使用)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/多线程六/" itemprop="url">多线程六(NSThread NSOperation与GCD的优缺点)</a></h1>
         
 
         <div class="post-meta">
@@ -1172,8 +1292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T12:33:20+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T18:40:52+08:00">
+                2018-01-01
               </time>
             
 
@@ -1211,10 +1331,10 @@
 
       
         
-          <p>UDID，Mac地址，OpenUDID，都已经要么无效要么禁止，目前用的比较多的UUID。<br>
+          <p><a href="https://www.cnblogs.com/mancong/p/6232881.html" target="_blank" rel="noopener">多线程详解:https://www.cnblogs.com/mancong/p/6232881.html</a><br>NSThread、 GCD、 NSOperation 抽象封装度层次从低到高，抽象封装度越高使用越简单。应该忘记微小的性能提升。过早优化是万恶之源。只有Instruments显示有真正的性能提升时才有必要用低级的GCD。<br><a href="http://blog.csdn.net/gao1440156051/article/details/52460620" target="_blank" rel="noopener">多线程的优缺点:http://blog.csdn.net/gao1440156051/article/details/52460620</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南七/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/多线程六/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1265,7 +1385,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南六/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程五/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -1284,7 +1404,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南六/" itemprop="url">iOS指南六(使用atomic一定安全吗?)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/多线程五/" itemprop="url">多线程五(Runloop)</a></h1>
         
 
         <div class="post-meta">
@@ -1296,8 +1416,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T12:24:51+08:00">
-                2017-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T18:01:44+08:00">
+                2018-01-01
               </time>
             
 
@@ -1335,134 +1455,10 @@
 
       
         
-          <p>不是，atomic的本意是指属性的存取方法是线程安全的（thread safe)，并不保证整个对象是线程安全的。设置atomic后，只是默认的生成getter和setter方法执行是原子的，只能保证多线程中执行getter和setter方法是线程安全的，但是实际上很多时候是执行getter后需要对变量做处理，这个时候就会出问题。</p>
+          <p>RunLoop实际上是一个对象，这个对象在循环中用来处理程序运行过程中出现的各种事件（比如说触摸事件、UI刷新事件、定时器事件、Selector事件），从而保持程序的持续运行；而且在没有事件处理的时候，会进入睡眠模式，从而节省CPU资源，提高程序性能。<br><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a><br><a href="https://www.jianshu.com/p/d260d18dd551" target="_blank" rel="noopener">https://www.jianshu.com/p/d260d18dd551</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南六/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南五/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="半临渊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大漠楼兰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/iOS指南五/" itemprop="url">iOS指南五(POST GET 区别)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T12:05:09+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Http定义了与服务器交互的不同方法，最基本的方法有4种，分别是GET，POST，PUT，DELETE。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南五/#more" rel="contents">
+            <a class="btn" href="/2018/01/01/多线程五/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1504,7 +1500,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1554,7 +1550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1567,7 +1563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1650,7 +1646,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

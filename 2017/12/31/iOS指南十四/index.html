@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="大漠楼兰的博客">
 <meta property="og:description" content="drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。这个方法的主要作用是根据传入的 rect 来绘制图像">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-31T07:53:35.017Z">
+<meta property="og:updated_time" content="2018-01-01T08:21:56.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS指南十四(使用drawRect有什么影响 )">
 <meta name="twitter:description" content="drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。这个方法的主要作用是根据传入的 rect 来绘制图像">
@@ -342,7 +342,8 @@
       
         <p>drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。<br>这个方法的主要作用是根据传入的 rect 来绘制图像 <a href="https://developer.apple.com/documentation/uikit/uiview#//apple_ref/occ/instm/UIView/drawRect:" target="_blank" rel="noopener">参见文档</a>. 这个方法的默认实现没有做任何事情, 我们可以在这个方法中使用 Core Graphics 和 UIKit 来绘制视图的内容.<br>这个方法的调用机制也是非常特别. 当你调用 setNeedsDisplay 方法时, UIKit 将会把当前图层标记为 dirty, 但还是会显示原来的内容, 直到下一次的视图渲染周期, 才会为标记为 dirty 的图层重新建立 Core Graphics 上下文, 然后将内存中的数据恢复出来, 再使用 CGContextRef 进行绘制.</p>
 <a id="more"></a>
-<h2 id="使用drawRect有什么影响"><a href="#使用drawRect有什么影响" class="headerlink" title="使用drawRect有什么影响"></a>使用drawRect有什么影响</h2><p><a href="https://www.jianshu.com/p/d0d3f6b5a1b0" target="_blank" rel="noopener">https://www.jianshu.com/p/d0d3f6b5a1b0</a><br>这个方法的影响在于有touch event的时候之后，会重新绘制，很多这样的按钮的话就会比较影响效率。<br>以下都会被调用</p>
+<h2 id="使用drawRect有什么影响"><a href="#使用drawRect有什么影响" class="headerlink" title="使用drawRect有什么影响"></a>使用drawRect有什么影响</h2><p><a href="https://www.jianshu.com/p/d0d3f6b5a1b0" target="_blank" rel="noopener">https://www.jianshu.com/p/d0d3f6b5a1b0</a><br>这个方法的影响在于有touch event的时候之后，会重新绘制，很多这样的按钮的话就会比较影响效率。</p>
+<p>以下都会被调用</p>
 <blockquote>
 <p>1、如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。drawRect 掉用是在Controller-&gt;loadView, Controller-&gt;viewDidLoad 两方法之后掉用的.所以不用担心在 控制器中,这些View的drawRect就开始画了.这样可以在控制器中设置一些值给View(如果这些View draw的时候需要用到某些变量 值).<br>2、该方法在调用sizeToFit后被调用，所以可以先调用sizeToFit计算出size。然后系统自动调用drawRect:方法。<br>3、通过设置contentMode属性值为UIViewContentModeRedraw。那么将在每次设置或更改frame的时候自动调用drawRect:。<br>4、直接调用setNeedsDisplay，或者setNeedsDisplayInRect:触发drawRect:，但是有个前提条件是rect不能为0。</p>
 </blockquote>
@@ -385,6 +386,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/多线程一/" rel="prev" title="多线程一">
+                多线程一 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -465,7 +470,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -478,7 +483,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -577,7 +582,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

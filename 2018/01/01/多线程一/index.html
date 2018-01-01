@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="多线程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。[1]  在一个程序">
+<meta name="keywords" content="多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程一">
+<meta property="og:url" content="http://yoursite.com/2018/01/01/多线程一/index.html">
+<meta property="og:site_name" content="大漠楼兰的博客">
+<meta property="og:description" content="多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。[1]  在一个程序">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-01T12:27:37.739Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程一">
+<meta name="twitter:description" content="多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。[1]  在一个程序">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/01/多线程一/"/>
+
+
+
+
+
+  <title>多线程一 | 大漠楼兰的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大漠楼兰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多线程一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T16:17:48+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。[1]  在一个程序中，这些独立运行的程序片段叫作“线程”（Thread），利用它编程的概念就叫作“多线程处理（Multithreading）”。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程（台湾译作“执行绪”），进而提升整体处理性能。<br><a href="https://baike.baidu.com/item/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1190404?fr=aladdin" target="_blank" rel="noopener">多线程(百度百科)</a><br><a id="more"></a></p>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><p>GCD为Grand Central Dispatch的缩写。[1]<br>Grand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。<br><a href="https://baike.baidu.com/item/GCD" target="_blank" rel="noopener">GCD 百度百科</a></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<p>(1)GCD可用于多核的并行运算<br>(2)GCD会自动利用更多的CPU内核（比如双核、四核）<br>(3)GCD会自动管理线程的生命周期（创建线程、调度任务、销毁线程）<br>(4)程序员只需要告诉GCD想要执行什么任务，不需要编写任何线程管理代码</p>
+</blockquote>
+<h2 id="任务和队列"><a href="#任务和队列" class="headerlink" title="任务和队列"></a>任务和队列</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>任务：就是执行操作的意思，换句话说就是你在线程中执行的那段代码。在GCD中是放在block中的。执行任务有两种方式：同步执行和异步执行。两者的主要区别是：是否具备开启新线程的能力。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">同步执行（sync）：只能在当前线程中执行任务，不具备开启新线程的能力</span><br><span class="line">异步执行（async）：可以在新的线程中执行任务，具备开启新线程的能力</span><br></pre></td></tr></table></figure></p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>这里的队列指任务队列，即用来存放任务的队列。队列是一种特殊的线性表，采用FIFO（先进先出）的原则，即新任务总是被插入到队列的末尾，而读取任务的时候总是从队列的头部开始读取。每读取一个任务，则从队列中释放一个任务。在GCD中有两种队列：串行队列和并行队列。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">并行队列（Concurrent Dispatch Queue）：可以让多个任务并行（同时）执行（自动开启多个线程同时执行任务）</span><br><span class="line">并行功能只有在异步（dispatch_async）函数下才有效</span><br><span class="line">串行队列（Serial Dispatch Queue）：让任务一个接着一个地执行（一个任务执行完毕后，再执行下一个任务）</span><br></pre></td></tr></table></figure>
+<h2 id="GCD的使用步骤"><a href="#GCD的使用步骤" class="headerlink" title="GCD的使用步骤"></a>GCD的使用步骤</h2><p>GCD的使用步骤其实很简单，只有两步。<br>(1)创建一个队列（串行队列或并行队列）<br>(2)将任务添加到队列中，然后系统就会根据任务类型执行任务（同步执行或异步执行）<br>队列的创建方法和任务的创建方法。</p>
+<h3 id="队列的创建"><a href="#队列的创建" class="headerlink" title="队列的创建"></a>队列的创建</h3><p>可以使用dispatch_queue_create来创建对象，需要传入两个参数，第一个参数表示队列的唯一标识符，用于DEBUG，可为空；第二个参数用来识别是串行队列还是并行队列。DISPATCH_QUEUE_SERIAL表示串行队列，DISPATCH_QUEUE_CONCURRENT表示并行队列。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 串行队列的创建方法</span><br><span class="line">dispatch_queue_t queue= dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">// 并行队列的创建方法</span><br><span class="line">dispatch_queue_t queue= dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br></pre></td></tr></table></figure>
+<p>对于并行队列，还可以使用dispatch_get_global_queue来创建全局并行队列。GCD默认提供了全局的并行队列，需要传入两个参数。第一个参数表示队列优先级，一般用DISPATCH_QUEUE_PRIORITY_DEFAULT。第二个参数暂时没用，用0即可。</p>
+<h3 id="任务的创建"><a href="#任务的创建" class="headerlink" title="任务的创建"></a>任务的创建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 同步执行任务创建方法</span><br><span class="line">dispatch_sync(queue, ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"%@"</span>,[NSThread currentThread]);    // 这里放任务代码</span><br><span class="line">&#125;);</span><br><span class="line">// 异步执行任务创建方法</span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"%@"</span>,[NSThread currentThread]);    // 这里放任务代码</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>使用GCD只需两步，但是既然我们有两种队列，两种任务执行方式，那么我们就有了四种不同的组合方式。这四种不同的组合方式是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">并行队列 + 同步执行</span><br><span class="line">并行队列 + 异步执行</span><br><span class="line">串行队列 + 同步执行</span><br><span class="line">串行队列 + 异步执行</span><br></pre></td></tr></table></figure></p>
+<p>我们还有一种特殊队列是主队列，那样就有六种不同的组合方式了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主队列 + 同步执行</span><br><span class="line">主队列 + 异步执行</span><br></pre></td></tr></table></figure></p>
+<h3 id="GCD的基本使用"><a href="#GCD的基本使用" class="headerlink" title="GCD的基本使用"></a>GCD的基本使用</h3><blockquote>
+<pre><code>并行队列                    串行队列                       主队列
+</code></pre><p>同步(sync)    没有开启新线程，串行执行任务   没有开启新线程，串行执行任务      没有开启新线程，串行执行任务<br>异步(async)   有开启新线程，并行执行任务     有开启新线程(1条)，串行执行任务   没有开启新线程，串行执行任务</p>
+</blockquote>
+<h4 id="并行队列-同步执行"><a href="#并行队列-同步执行" class="headerlink" title="并行队列 + 同步执行"></a>并行队列 + 同步执行</h4><p>不会开启新线程，执行完一个任务，再执行下一个任务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">- (void) syncConcurrent</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"syncConcurrent---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue= dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    NSLog(@<span class="string">"syncConcurrent---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">syncConcurrent---begin</span><br><span class="line">1------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">1------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7f82a1d058b0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">syncConcurrent---end</span><br></pre></td></tr></table></figure></p>
+<p>从并行队列 + 同步执行中可以看到，所有任务都是在主线程中执行的。由于只有一个线程，所以任务只能一个一个执行。<br>同时我们还可以看到，所有任务都在打印的syncConcurrent—begin和syncConcurrent—end之间，这说明任务是添加到队列中马上执行的。</p>
+<h4 id="并行队列-异步执行"><a href="#并行队列-异步执行" class="headerlink" title="并行队列 + 异步执行"></a>并行队列 + 异步执行</h4><p>可同时开启多线程，任务交替执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">- (void) asyncConcurrent</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"asyncConcurrent---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue= dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    NSLog(@<span class="string">"asyncConcurrent---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncConcurrent---begin</span><br><span class="line">asyncConcurrent---end</span><br><span class="line">1------&lt;NSThread: 0x7f8309c22080&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2------&lt;NSThread: 0x7f8309f0b790&gt;&#123;number = 4, name = (null)&#125;</span><br><span class="line">3------&lt;NSThread: 0x7f8309e1a950&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">1------&lt;NSThread: 0x7f8309c22080&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2------&lt;NSThread: 0x7f8309f0b790&gt;&#123;number = 4, name = (null)&#125;</span><br><span class="line">3------&lt;NSThread: 0x7f8309e1a950&gt;&#123;number = 3, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在并行队列 + 异步执行中可以看出，除了主线程，又开启了3个线程，并且任务是交替着同时执行的。<br>另一方面可以看出，所有任务是在打印的syncConcurrent—begin和syncConcurrent—end之后才开始执行的。说明任务不是马上执行，而是将所有任务添加到队列之后才开始异步执行。</p>
+<h4 id="串行队列-同步执行"><a href="#串行队列-同步执行" class="headerlink" title="串行队列 + 同步执行"></a>串行队列 + 同步执行</h4><p>不会开启新线程，在当前线程执行任务。任务是串行的，执行完一个任务，再执行下一个任务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">- (void) syncSerial</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"syncSerial---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);    </span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    NSLog(@<span class="string">"syncSerial---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line">输出结果为：</span><br><span class="line">syncSerial---begin</span><br><span class="line">1------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">1------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fa2e9f00980&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">syncSerial---end</span><br></pre></td></tr></table></figure></p>
+<p>在串行队列 + 同步执行可以看到，所有任务都是在主线程中执行的，并没有开启新的线程。而且由于串行队列，所以按顺序一个一个执行。<br>同时我们还可以看到，所有任务都在打印的syncConcurrent—begin和syncConcurrent—end之间，这说明任务是添加到队列中马上执行的。</p>
+<h4 id="串行队列-异步执行"><a href="#串行队列-异步执行" class="headerlink" title="串行队列 + 异步执行"></a>串行队列 + 异步执行</h4><p>会开启新线程，但是因为任务是串行的，执行完一个任务，再执行下一个任务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">- (void) asyncSerial</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"asyncSerial---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);    </span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    NSLog(@<span class="string">"asyncSerial---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line">输出结果为：</span><br><span class="line">asyncSerial---begin</span><br><span class="line">asyncSerial---end</span><br><span class="line">1------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">1------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fb548c0e390&gt;&#123;number = 2, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在串行队列 + 异步执行可以看到，开启了一条新线程，但是任务还是串行，所以任务是一个一个执行。<br>另一方面可以看出，所有任务是在打印的syncConcurrent—begin和syncConcurrent—end之后才开始执行的。说明任务不是马上执行，而是将所有任务添加到队列之后才开始同步执行。</p>
+<h4 id="主队列-同步执行"><a href="#主队列-同步执行" class="headerlink" title="主队列 + 同步执行"></a>主队列 + 同步执行</h4><p>互等卡住不可行(在主线程中调用)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (void)syncMain</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"syncMain---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue = dispatch_get_main_queue();</span><br><span class="line"></span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);   </span><br><span class="line"></span><br><span class="line">    NSLog(@<span class="string">"syncMain---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line">输出结果</span><br><span class="line"> syncMain---begin</span><br></pre></td></tr></table></figure></p>
+<p>我们惊奇的发现，在主线程中使用主队列 + 同步执行，任务不再执行了，而且syncMain—end也没有打印。这是为什么呢？<br>这是因为我们在主线程中执行这段代码。我们把任务放到了主队列中，也就是放到了主线程的队列中。而同步执行有个特点，就是对于任务是立马执行的。那么当我们把第一个任务放进主队列中，它就会立马执行。但是主线程现在正在处理syncMain方法，所以任务需要等syncMain执行完才能执行。而syncMain执行到第一个任务的时候，又要等第一个任务执行完才能往下执行第二个和第三个任务。</p>
+<p>那么，现在的情况就是syncMain方法和第一个任务都在等对方执行完毕。这样大家互相等待，所以就卡住了，所以我们的任务执行不了，而且syncMain—end也没有打印。</p>
+<p>要是如果不再主线程中调用，而在其他线程中调用会如何呢？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_queue_create(<span class="string">"test.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">    [self syncMain];</span><br><span class="line">&#125;);</span><br><span class="line">输出结果：</span><br><span class="line">syncMain---begin</span><br><span class="line">1------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">1------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7faef2f01600&gt;&#123;number = 1, name = main&#125;</span><br><span class="line"> syncMain---end</span><br></pre></td></tr></table></figure></p>
+<p>在其他线程中使用主队列 + 同步执行可看到：所有任务都是在主线程中执行的，并没有开启新的线程。而且由于主队列是串行队列，所以按顺序一个一个执行。<br>同时我们还可以看到，所有任务都在打印的syncConcurrent—begin和syncConcurrent—end之间，这说明任务是添加到队列中马上执行的。</p>
+<h4 id="主队列-异步执行"><a href="#主队列-异步执行" class="headerlink" title="主队列 + 异步执行"></a>主队列 + 异步执行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">只在主线程中执行任务，执行完一个任务，再执行下一个任务</span><br><span class="line">- (void)asyncMain</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"asyncMain---begin"</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_queue_t queue = dispatch_get_main_queue();</span><br><span class="line">    </span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"1------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);    </span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"2------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; 2; ++i) &#123;</span><br><span class="line">            NSLog(@<span class="string">"3------%@"</span>,[NSThread currentThread]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);  </span><br><span class="line"></span><br><span class="line">    NSLog(@<span class="string">"asyncMain---end"</span>);</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">asyncMain---begin</span><br><span class="line">asyncMain---end</span><br><span class="line">1------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">1------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">2------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br><span class="line">3------&lt;NSThread: 0x7fb623d015e0&gt;&#123;number = 1, name = main&#125;</span><br></pre></td></tr></table></figure>
+<p>我们发现所有任务都在主线程中，虽然是异步执行，具备开启线程的能力，但因为是主队列，所以所有任务都在主线程中，并且一个接一个执行。<br>另一方面可以看出，所有任务是在打印的syncConcurrent—begin和syncConcurrent—end之后才开始执行的。说明任务不是马上执行，而是将所有任务添加到队列之后才开始同步执行。</p>
+<p><a href="https://www.jianshu.com/p/2d57c72016c6" target="_blank" rel="noopener">https://www.jianshu.com/p/2d57c72016c6</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/iOS指南十四/" rel="next" title="iOS指南十四(使用drawRect有什么影响 )">
+                <i class="fa fa-chevron-left"></i> iOS指南十四(使用drawRect有什么影响 )
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/多线程二/" rel="prev" title="多线程二(线程之间的通信 GCD的其他方法)">
+                多线程二(线程之间的通信 GCD的其他方法) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="半临渊" />
+            
+              <p class="site-author-name" itemprop="name">半临渊</p>
+              <p class="site-description motion-element" itemprop="description">十步杀一人 千里不留行</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Shineforword" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dreamlingclear@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com/" title="Baidu" target="_blank">Baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD"><span class="nav-number">1.</span> <span class="nav-text">GCD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.1.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务和队列"><span class="nav-number">2.</span> <span class="nav-text">任务和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务"><span class="nav-number">2.1.</span> <span class="nav-text">任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-number">2.2.</span> <span class="nav-text">队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD的使用步骤"><span class="nav-number">3.</span> <span class="nav-text">GCD的使用步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#队列的创建"><span class="nav-number">3.1.</span> <span class="nav-text">队列的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务的创建"><span class="nav-number">3.2.</span> <span class="nav-text">任务的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD的基本使用"><span class="nav-number">3.3.</span> <span class="nav-text">GCD的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#并行队列-同步执行"><span class="nav-number">3.3.1.</span> <span class="nav-text">并行队列 + 同步执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并行队列-异步执行"><span class="nav-number">3.3.2.</span> <span class="nav-text">并行队列 + 异步执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串行队列-同步执行"><span class="nav-number">3.3.3.</span> <span class="nav-text">串行队列 + 同步执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串行队列-异步执行"><span class="nav-number">3.3.4.</span> <span class="nav-text">串行队列 + 异步执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主队列-同步执行"><span class="nav-number">3.3.5.</span> <span class="nav-text">主队列 + 同步执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主队列-异步执行"><span class="nav-number">3.3.6.</span> <span class="nav-text">主队列 + 异步执行</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">半临渊</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

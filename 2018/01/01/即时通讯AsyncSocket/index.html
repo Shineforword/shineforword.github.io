@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AsyncSocket," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="AsyncSocket:第三方开源库，首选方式，也是在开发项目中经常会用到的。选择AsyncSocket的原因：iphone的CFNetwork编程比较复杂。使用AsyncSocket开源库来开发相对较简单，帮助我们封装了很多东西。iOS即时通讯示例https://github.com/emsg/emsg_simple_ios其他iOS中Socket编程的方式:BSD Socket: 是UNIX系">
+<meta name="keywords" content="AsyncSocket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="即时通讯AsyncSocket">
+<meta property="og:url" content="http://yoursite.com/2018/01/01/即时通讯AsyncSocket/index.html">
+<meta property="og:site_name" content="大漠楼兰的博客">
+<meta property="og:description" content="AsyncSocket:第三方开源库，首选方式，也是在开发项目中经常会用到的。选择AsyncSocket的原因：iphone的CFNetwork编程比较复杂。使用AsyncSocket开源库来开发相对较简单，帮助我们封装了很多东西。iOS即时通讯示例https://github.com/emsg/emsg_simple_ios其他iOS中Socket编程的方式:BSD Socket: 是UNIX系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-01T13:53:17.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="即时通讯AsyncSocket">
+<meta name="twitter:description" content="AsyncSocket:第三方开源库，首选方式，也是在开发项目中经常会用到的。选择AsyncSocket的原因：iphone的CFNetwork编程比较复杂。使用AsyncSocket开源库来开发相对较简单，帮助我们封装了很多东西。iOS即时通讯示例https://github.com/emsg/emsg_simple_ios其他iOS中Socket编程的方式:BSD Socket: 是UNIX系">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/01/即时通讯AsyncSocket/"/>
+
+
+
+
+
+  <title>即时通讯AsyncSocket | 大漠楼兰的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大漠楼兰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/即时通讯AsyncSocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">即时通讯AsyncSocket</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T21:09:45+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>AsyncSocket:第三方开源库，首选方式，也是在开发项目中经常会用到的。选择AsyncSocket的原因：iphone的CFNetwork编程比较复杂。使用AsyncSocket开源库来开发相对较简单，帮助我们封装了很多东西。<br><a href="https://github.com/emsg/emsg_simple_ios" target="_blank" rel="noopener">iOS即时通讯示例https://github.com/emsg/emsg_simple_ios</a><br>其他iOS中Socket编程的方式:<br>BSD Socket: 是UNIX系统中通用的网络接口，它不仅支持各种不同的网络类型，而且也是一种内部进程之间的通信机制。而iOS系统其实本质就是UNIX，所以可以用，但是比较复杂。<br>CFSocket:CFSocket是苹果提供给我们的使用Socket的方式，但是用起来还是会不太顺手。当然想使用的话，可以细细研究一下。<br><a id="more"></a></p>
+<h2 id="AsyncSocket详解"><a href="#AsyncSocket详解" class="headerlink" title="AsyncSocket详解"></a>AsyncSocket详解</h2><p>常用方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、建立连接</span><br><span class="line">- (int)connectServer:(NSString *)hostIP port:(int)hostPort</span><br><span class="line">2、连接成功后，会回调的函数</span><br><span class="line">- (void)onSocket:(AsyncSocket *)sockdidConnectToHost:(NSString *)host port:(UInt16)port</span><br><span class="line">3、发送数据</span><br><span class="line">- (void)writeData:(NSData *)data withTimeout:(NSTimeInterval)timeout tag:(long)tag;</span><br><span class="line"></span><br><span class="line">4、接受数据</span><br><span class="line">-(void)onSocket:(AsyncSocket *)sockdidReadData:(NSData *)data withTag:(long)tag</span><br><span class="line"></span><br><span class="line">5、断开连接</span><br><span class="line">- (void)onSocket:(AsyncSocket *)sockwillDisconnectWithError:(NSError *)err</span><br><span class="line">- (void)onSocketDidDisconnect:(AsyncSocket *)sock</span><br></pre></td></tr></table></figure>
+<p>主要就是上述的几个方法，只是说在真正开发当中，很可能我们在收发数据的时候，我们收发的数据并不仅仅是一个字符串包装成NSData即可，我们很可能会发送结构体等类型，这个时候我们就需要和服务器端的人员协作来开发：定义怎样的结构体。</p>
+<h2 id="使用方法详解"><a href="#使用方法详解" class="headerlink" title="使用方法详解"></a>使用方法详解</h2><p>即时通讯最大的特点就是实时性，基本感觉不到延时或是掉线，所以必须对socket的连接进行监视与检测，在断线时进行重新连接，如果用户退出登录，要将socket手动关闭，否则对服务器会造成一定的负荷。</p>
+<pre><code>一般来说，一个用户（对于ios来说也就是我们的项目中）只能有一个正在连接的socket，所以这个socket变量必须是全局的，这里可以考虑使用单例或是AppDelegate进行数据共享，首选使用单例。如果对一个已经连接的socket对象再次进行连接操作，会抛出异常（不可对已经连接的socket进行连接）程序崩溃，所以在连接socket之前要对socket对象的连接状态进行判断。
+</code></pre><p>使用socket进行即时通讯还有一个必须的操作，即对服务器发送心跳包，每隔一段时间对服务器发送长连接指令（指令不唯一，由服务器端指定，包括使用socket发送消息，发送的数据和格式都是由服务器指定），如果没有收到服务器的返回消息，AsyncSocket会得到失去连接的消息，我们可以在失去连接的回调方法里进行重新连接。</p>
+<h3 id="声明socket变量："><a href="#声明socket变量：" class="headerlink" title="声明socket变量："></a>声明socket变量：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, strong) AsyncSocket *socket; // socket</span><br><span class="line">@property (nonatomic, copy ) NSString *socketHost; // socket的Host </span><br><span class="line">@property (nonatomic, assign) UInt16 socketPort; // socket的prot</span><br></pre></td></tr></table></figure>
+<h3 id="连接-长连接"><a href="#连接-长连接" class="headerlink" title="连接(长连接)"></a>连接(长连接)</h3><p>连接时host与port都是由服务器指定。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)socketConnectHost;// socket连接</span><br></pre></td></tr></table></figure></p>
+<h3 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a>心跳</h3><p>心跳通过计时器来实现</p>
+<h3 id="断开连接"><a href="#断开连接" class="headerlink" title="断开连接"></a>断开连接</h3><h3 id="重连"><a href="#重连" class="headerlink" title="重连"></a>重连</h3><h3 id="发送数据："><a href="#发送数据：" class="headerlink" title="发送数据："></a>发送数据：</h3><p>socket发送数据是以栈的形式存放，所有数据放在一个栈中，存取时会出现粘包的现象，所以很多时候服务器在收发数据时是以先发送内容字节长度，再发送内容的形式，得到数据时也是先得到一个长度，再根据这个长度在栈中读取这个长度的字节流，如果是这种情况，发送数据时只需在发送内容前发送一个长度，发送方法与发送内容一样，假设长度为8<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *dataStream = [@8 dataUsingEncoding:NSUTF8StringEncoding]; [self.socket writeData:dataStream withTimeout:1 tag:1];</span><br></pre></td></tr></table></figure></p>
+<h3 id="接收数据："><a href="#接收数据：" class="headerlink" title="接收数据："></a>接收数据：</h3><p>为了能时刻接收到socket的消息，我们在长连接方法中进行读取数据</p>
+<h3 id="【备注】关于NSData对象"><a href="#【备注】关于NSData对象" class="headerlink" title="【备注】关于NSData对象"></a>【备注】关于NSData对象</h3><p>无论SOCKET收发都采用NSData对象。<br>NSData主要是带一个(id)data指向的数据空间和长度 length。NSString转换成NSData对象</p>
+<h4 id="h"><a href="#h" class="headerlink" title=".h"></a>.h</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  EMsgCilent.h</span><br><span class="line">//  EmsClientDemo</span><br><span class="line">//  Copyright (c) 2015年 cyt. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line"><span class="comment">#import &lt;Foundation/Foundation.h&gt;</span></span><br><span class="line"><span class="comment">#import "AsyncSocket.h"</span></span><br><span class="line"><span class="comment">#import "EMsgMessage.h"</span></span><br><span class="line"><span class="comment">#import "EMsgDefine.h"</span></span><br><span class="line"></span><br><span class="line">@protocol EmsgClientProtocol&lt;NSObject&gt;</span><br><span class="line">@optional</span><br><span class="line">- (void)autoReconnect;</span><br><span class="line">/*登陆服务器成功*/</span><br><span class="line">- (void)didAuthSuccessed;</span><br><span class="line">/*登陆服务器失败*/</span><br><span class="line">- (void)didAuthFailed:(NSString *)error;</span><br><span class="line">/*发送信息成功*/</span><br><span class="line">- (void)didSendMessageSuccessed:(long)tag;</span><br><span class="line">/*发送信息失败*/</span><br><span class="line">- (void)didSendMessageFailed:(long)tag;</span><br><span class="line">/*登录超时的回调*/</span><br><span class="line">- (void)reciveAuthTimeOut;</span><br><span class="line">/*收到消息*/</span><br><span class="line">- (void)didReceivedMessage:(EMsgMessage *)msg;</span><br><span class="line">/*收到离线消息*/</span><br><span class="line">- (void)didReceivedOfflineMessageArray:(NSArray *)array;</span><br><span class="line">/*将要断开连接*/</span><br><span class="line">- (void)willDisconnectWithError:(NSError *)err;</span><br><span class="line">/*收到强制下线消息*/</span><br><span class="line">- (void)didKilledByServer;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface EMsgCilent : NSObject &#123;</span><br><span class="line">  NSMutableData *packetdata;</span><br><span class="line">  BOOL hasAuth;</span><br><span class="line">  BOOL isNetWorkAvailable;</span><br><span class="line">&#125;</span><br><span class="line">@property(nonatomic,assign)id&lt;EmsgClientProtocol&gt;delegate;</span><br><span class="line">@property(nonatomic, strong) NSString *kHost;</span><br><span class="line">@property(nonatomic, assign) NSUInteger kPort;</span><br><span class="line">/**</span><br><span class="line"> *  登录账号</span><br><span class="line"> */</span><br><span class="line">@property(nonatomic, strong) NSString *jid;</span><br><span class="line">/**</span><br><span class="line"> *  登录密码</span><br><span class="line"> */</span><br><span class="line">@property(nonatomic, retain) NSString *<span class="built_in">pwd</span>;</span><br><span class="line">/**</span><br><span class="line"> *  是否退出断开Socket通信</span><br><span class="line"> */</span><br><span class="line">@property(nonatomic, assign) BOOL isLogOut;</span><br><span class="line">/**</span><br><span class="line"> *  创建单例</span><br><span class="line"> */</span><br><span class="line">+ (instancetype)sharedInstance;</span><br><span class="line">/**</span><br><span class="line"> @method</span><br><span class="line"> @brief 发起重新连接的请求</span><br><span class="line"> @discussion</span><br><span class="line"> */</span><br><span class="line">- (void)autoReconnect;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> @method</span><br><span class="line"> @brief 登陆认证</span><br><span class="line"> @discussion</span><br><span class="line"> @param jid 登录账户</span><br><span class="line"> @param password 登录密码</span><br><span class="line"> */</span><br><span class="line">- (BOOL)auth:(NSString *)username</span><br><span class="line">withPassword:(NSString *)password</span><br><span class="line">    withHost:(NSString *)host</span><br><span class="line">    withPort:(NSUInteger)port;</span><br><span class="line">/**</span><br><span class="line"> *  发送所有消息入口</span><br><span class="line"> *</span><br><span class="line"> *  @param fromId         发送消息者</span><br><span class="line"> *  @param toId           接收消息者</span><br><span class="line"> *  @param mTargetType</span><br><span class="line"> *消息类型:0：打开会话，1：普通聊天（1对1），2：群聊（一对多），3：状态同步（实现消息的事件同步，例如：已送达、已读</span><br><span class="line"> *等），4：系统消息（服务端返回给客户端的通知），5：语音拨号（P2P服务拨号），6：视频（P2P服务拨号）7：订阅：（发布订阅）</span><br><span class="line"> *  @param ack ack是否做校验：0：不确保对方是否收到消息，1：对方必然收到消息</span><br><span class="line"> *  @param content        消息内容</span><br><span class="line"> *  @param attrDictionary 消息的附加属性</span><br><span class="line"> *  @param tag            消息的附加标记</span><br><span class="line"> */</span><br><span class="line">- (void)sendMessageWithToId:(NSString *)toId</span><br><span class="line">             withTargetType:(MsgType)mTargetType</span><br><span class="line">                      isAck:(BOOL)ack</span><br><span class="line">                withContent:(NSString *)content</span><br><span class="line">                  withAttrs:(NSDictionary *)attrDictionary</span><br><span class="line">            withMessageMark:(NSInteger)tag;</span><br><span class="line"></span><br><span class="line">/*!</span><br><span class="line"> @method</span><br><span class="line"> @brief 判断消息服务引擎状态</span><br><span class="line"> @discussion</span><br><span class="line"> @<span class="built_in">return</span> YES 消息服务运行正常  NO 消息服务异常需要重新建立连接</span><br><span class="line"> */</span><br><span class="line">- (BOOL)isAuthed;</span><br><span class="line"></span><br><span class="line">/*!</span><br><span class="line"> @method</span><br><span class="line"> @brief 登出消息服务</span><br><span class="line"> @discussion 使用在不需要消息服务时关闭消息服务以节省内存占用</span><br><span class="line"> */</span><br><span class="line">- (void)<span class="built_in">logout</span>;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>.m<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  EMsgCilent.m</span><br><span class="line">//  EmsClientDemo</span><br><span class="line">//  Copyright (c) 2015年 cyt. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line"><span class="comment">#import "EMsgCilent.h"</span></span><br><span class="line"><span class="comment">#import "AFNetworking.h"</span></span><br><span class="line"><span class="comment">#import "Reachability.h"</span></span><br><span class="line"><span class="comment">#import "JSONKit.h"</span></span><br><span class="line"><span class="comment">#import "MJExtension.h"</span></span><br><span class="line"><span class="comment">#import "FMDBManger.h"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">static EMsgCilent *shareEMsgClient = nil;</span><br><span class="line"></span><br><span class="line">@implementation EMsgCilent</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  自动重连</span><br><span class="line"> */</span><br><span class="line">NSTimer *recnnecttimer;</span><br><span class="line">/**</span><br><span class="line"> *  心跳</span><br><span class="line"> */</span><br><span class="line">NSTimer *hearttimer;</span><br><span class="line">/**</span><br><span class="line"> *  Socket单例</span><br><span class="line"> */</span><br><span class="line">AsyncSocket *asyncSocket;</span><br><span class="line">/**</span><br><span class="line"> *  网络连接状态</span><br><span class="line"> */</span><br><span class="line">Reachability *hostReach;</span><br><span class="line"></span><br><span class="line">+ (instancetype)sharedInstance &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        shareEMsgClient = [[EMsgCilent alloc] init];</span><br><span class="line">        shareEMsgClient.isLogOut = YES;</span><br><span class="line">        [shareEMsgClient registerNetWorkStatus];</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">return</span> shareEMsgClient;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)reachabilityChanged:(NSNotification *)note &#123;</span><br><span class="line">    Reachability *curReach = [note object];</span><br><span class="line">    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);</span><br><span class="line">    NetworkStatus status = [curReach currentReachabilityStatus];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (status == NotReachable) &#123;</span><br><span class="line">        [self closeSocket];</span><br><span class="line">        isNetWorkAvailable = NO;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        isNetWorkAvailable = YES;</span><br><span class="line">        [self autoReconnect];</span><br><span class="line">        NSNotification *notification =</span><br><span class="line">        [NSNotification notificationWithName:EMSG_NET_STATE</span><br><span class="line">                                      object:nil</span><br><span class="line">                                    userInfo:@&#123;@<span class="string">"state"</span>:@<span class="string">"5"</span>&#125;];</span><br><span class="line">        [[NSNotificationCenter defaultCenter] postNotification:notification];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (void)registerNetWorkStatus &#123;</span><br><span class="line">    [[NSNotificationCenter defaultCenter]</span><br><span class="line">     addObserver:self</span><br><span class="line">     selector:@selector(reachabilityChanged:)</span><br><span class="line">     name:kReachabilityChangedNotification</span><br><span class="line">     object:nil];</span><br><span class="line">    hostReach = [Reachability reachabilityWithHostName:@<span class="string">"www.baidu.com"</span>];</span><br><span class="line">    [hostReach startNotifier];</span><br><span class="line">&#125;</span><br><span class="line">//设置当前代理对象</span><br><span class="line">- (void)setDelegate:(id)thedelegeate &#123;</span><br><span class="line">    _delegate = thedelegeate;</span><br><span class="line">&#125;</span><br><span class="line">//判断当前认证状态</span><br><span class="line">- (BOOL)isAuthed &#123;</span><br><span class="line">    <span class="keyword">if</span> (asyncSocket != nil) &#123;</span><br><span class="line">        <span class="keyword">if</span> (asyncSocket.isConnected &amp;&amp; hasAuth) &#123;</span><br><span class="line">            <span class="built_in">return</span> YES;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">return</span> NO;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//关闭socket通道</span><br><span class="line">- (void)closeSocket &#123;</span><br><span class="line">    </span><br><span class="line">    hasAuth = NO;</span><br><span class="line">    <span class="keyword">if</span> (asyncSocket != nil) &#123;</span><br><span class="line">        [asyncSocket disconnect];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hearttimer != nil) &#123;</span><br><span class="line">        [hearttimer invalidate];</span><br><span class="line">        hearttimer = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (recnnecttimer != nil) &#123;</span><br><span class="line">        [recnnecttimer invalidate];</span><br><span class="line">        recnnecttimer = nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line"> 关闭消息服务引擎</span><br><span class="line"> */</span><br><span class="line">- (void)<span class="built_in">logout</span> &#123;</span><br><span class="line">    </span><br><span class="line">    [self closeSocket];</span><br><span class="line">    [shareEMsgClient setIsLogOut:YES];</span><br><span class="line"><span class="comment">#pragma mark -- 即使退出登录一样调用网络检测,因为,退出依然可以使用APP</span></span><br><span class="line">//    [hostReach stopNotifier];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (self.jid != nil) &#123;</span><br><span class="line">        self.jid = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (self.pwd != nil) &#123;</span><br><span class="line">        self.pwd = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (packetdata != nil) &#123;</span><br><span class="line">        packetdata = nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (BOOL)auth:(NSString *)username</span><br><span class="line">withPassword:(NSString *)password</span><br><span class="line">    withHost:(NSString *)host</span><br><span class="line">    withPort:(NSUInteger)port &#123;</span><br><span class="line">    <span class="keyword">if</span> (self.jid != nil) &#123;</span><br><span class="line">        self.jid = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    self.jid = username;</span><br><span class="line">    <span class="keyword">if</span> (self.pwd != nil) &#123;</span><br><span class="line">        self.pwd = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    self.pwd = password;</span><br><span class="line">    self.kHost = host;</span><br><span class="line">    self.kPort = port;</span><br><span class="line">    <span class="built_in">return</span> [self connectServer:username</span><br><span class="line">                  withPassword:password</span><br><span class="line">                      withHost:host</span><br><span class="line">                      withPort:port];</span><br><span class="line">&#125;</span><br><span class="line">- (BOOL)connectServer:(NSString *)username</span><br><span class="line">         withPassword:(NSString *)password</span><br><span class="line">             withHost:(NSString *)host</span><br><span class="line">             withPort:(NSUInteger)port &#123;</span><br><span class="line">    NSError *err = nil;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (asyncSocket != nil) &#123;</span><br><span class="line">        asyncSocket.delegate = nil;</span><br><span class="line">        asyncSocket = nil;</span><br><span class="line">    &#125;</span><br><span class="line">    asyncSocket = [[AsyncSocket alloc] initWithDelegate:self];</span><br><span class="line">//    [asyncSocket startTLS:kCFStreamSSLLevel];</span><br><span class="line">    <span class="keyword">if</span> (![asyncSocket connectToHost:host</span><br><span class="line">                             onPort:port</span><br><span class="line">                        withTimeout:-1</span><br><span class="line">                              error:&amp;err]) //连接失败</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *envelope = [NSMutableDictionary dictionary];</span><br><span class="line">    CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);</span><br><span class="line">    NSString *cfuuidString = (NSString *)CFBridgingRelease(</span><br><span class="line">                                                           CFUUIDCreateString(kCFAllocatorDefault, cfuuid));</span><br><span class="line">    [envelope setObject:cfuuidString forKey:@<span class="string">"id"</span>];</span><br><span class="line">    [envelope setObject:[NSNumber numberWithInt:MSG_TYPE_OPEN_SESSION]</span><br><span class="line">                 forKey:@<span class="string">"type"</span>];</span><br><span class="line">    [envelope setObject:username forKey:@<span class="string">"jid"</span>];</span><br><span class="line">    [envelope setObject:password forKey:@<span class="string">"pwd"</span>];</span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *root = [NSMutableDictionary dictionaryWithCapacity:1];</span><br><span class="line">    [root setObject:envelope forKey:@<span class="string">"envelope"</span>];</span><br><span class="line">    </span><br><span class="line">    NSString *logininfo =</span><br><span class="line">    [NSString stringWithFormat:@<span class="string">"%@%@"</span>, [root JSONString], END_TAG];</span><br><span class="line">    NSData *data = [logininfo dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    [asyncSocket writeData:data withTimeout:-1 tag:0];</span><br><span class="line">    <span class="built_in">return</span> YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)onSocket:(AsyncSocket *)sock</span><br><span class="line">didConnectToHost:(NSString *)host</span><br><span class="line">            port:(UInt16)port &#123;</span><br><span class="line">    [asyncSocket readDataWithTimeout:-1 tag:0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)onSocket:(AsyncSocket *)sock</span><br><span class="line">     didReadData:(NSData *)data</span><br><span class="line">         withTag:(long)tag &#123;</span><br><span class="line">    </span><br><span class="line">    [sock readDataWithTimeout:-1 tag:0];</span><br><span class="line">    PacketType pakcetType = [self isPacketEnd:data];</span><br><span class="line">    <span class="keyword">if</span> (pakcetType == PACKET_KILL) //服务器强制断开数据流 强制下线</span><br><span class="line">    &#123;</span><br><span class="line">        packetdata = nil;</span><br><span class="line">        </span><br><span class="line">        hasAuth = NO;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (hearttimer != nil) //  强制下线 关闭心跳包</span><br><span class="line">        &#123;</span><br><span class="line">            [hearttimer invalidate];</span><br><span class="line">            hearttimer = nil;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didKilledByServer)]) &#123;</span><br><span class="line">            [_delegate didKilledByServer];</span><br><span class="line">            [self <span class="built_in">logout</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pakcetType == PACKET_HEART) //心跳包数据流</span><br><span class="line">    &#123;</span><br><span class="line">        packetdata = nil;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pakcetType ==</span><br><span class="line">               PACKET_NOTEND) //由于太长的数据无法一次读入所以需要做特殊处理</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pakcetType == PACKET_END) &#123; //普通数据读取完成</span><br><span class="line">        NSString *msg = [[NSString alloc] initWithData:packetdata</span><br><span class="line">                                              encoding:NSUTF8StringEncoding];</span><br><span class="line">        packetdata = nil;</span><br><span class="line">        </span><br><span class="line">        NSRange foundEnd = [msg rangeOfString:END_TAG options:NSBackwardsSearch];</span><br><span class="line">        NSString *msgdictory = [msg substringToIndex:foundEnd.location];</span><br><span class="line">        NSDictionary *dic = [msgdictory objectFromJSONString];</span><br><span class="line">        NSDictionary *envelope = [dic objectForKey:@<span class="string">"envelope"</span>];</span><br><span class="line">        </span><br><span class="line">        int <span class="built_in">type</span> = [[envelope objectForKey:@<span class="string">"type"</span>] intValue];</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">type</span> == MSG_TYPE_OPEN_SESSION) //登陆验证返回</span><br><span class="line">        &#123;</span><br><span class="line">            NSDictionary *entity = [dic objectForKey:@<span class="string">"entity"</span>];</span><br><span class="line">            NSString *result = [entity objectForKey:@<span class="string">"result"</span>];</span><br><span class="line">            NSDictionary *envelope = [dic objectForKey:@<span class="string">"envelope"</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (result != nil &amp;&amp; [result isEqual:@<span class="string">"ok"</span>]) //登陆成功</span><br><span class="line">            &#123;</span><br><span class="line">                hasAuth = YES;</span><br><span class="line">                [shareEMsgClient setIsLogOut:NO];</span><br><span class="line">                [self sendHeartPacket]; //发送心跳包</span><br><span class="line">                <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didAuthSuccessed)]) &#123;</span><br><span class="line">                    [_delegate didAuthSuccessed];</span><br><span class="line">                &#125;</span><br><span class="line">                //执行登陆成功的消息回执</span><br><span class="line">                <span class="keyword">if</span> (envelope != nil) &#123;</span><br><span class="line">                    </span><br><span class="line">                    NSString *mid = [envelope objectForKey:@<span class="string">"id"</span>];</span><br><span class="line">                    int mtype = [[envelope objectForKey:@<span class="string">"type"</span>] intValue];</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (mtype == 0 &amp;&amp; mid != nil) &#123;</span><br><span class="line">                        </span><br><span class="line">                        [self sendAckMsg:mid];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                NSDictionary *delay = [dic objectForKey:@<span class="string">"delay"</span>];</span><br><span class="line">                NSArray *array = [delay objectForKey:@<span class="string">"packets"</span>];</span><br><span class="line">                <span class="keyword">if</span> (array != nil) &#123;</span><br><span class="line">                    NSMutableArray *msgArray = [[NSMutableArray alloc] init];</span><br><span class="line">                    <span class="keyword">for</span> (int i = 0; i &lt; [array count]; i++) &#123;</span><br><span class="line">                        NSDictionary *dic = [array objectAtIndex:i];</span><br><span class="line">                        EMsgMessage *msg = [EMsgMessage objectWithKeyValues:dic];</span><br><span class="line">                        [msgArray addObject:msg];</span><br><span class="line">                        </span><br><span class="line">                        <span class="keyword">if</span> ([msg.envelope.ack intValue] == 1) &#123;</span><br><span class="line">                            [self sendAckMsg:msg.envelope.uid]; //普通消息需要回执</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> ([msgArray count] &gt; 0) //离线消息</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(</span><br><span class="line">                                                                                 didReceivedOfflineMessageArray:)]) &#123;</span><br><span class="line">                            [_delegate didReceivedOfflineMessageArray:msgArray];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                hasAuth = NO;</span><br><span class="line">                <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didAuthFailed:)]) &#123;</span><br><span class="line">                    NSString *reason = [entity objectForKey:@<span class="string">"reason"</span>];</span><br><span class="line">                    [_delegate didAuthFailed:reason];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">type</span> == MSG_TYPE_CHAT ||</span><br><span class="line">                   <span class="built_in">type</span> == MSG_TYPE_GROUP_CHAT) //聊天消息返回</span><br><span class="line">        &#123;</span><br><span class="line">            EMsgMessage *msg = [[EMsgMessage alloc] init];</span><br><span class="line">            msg = [EMsgMessage objectWithKeyValues:dic];</span><br><span class="line">                        </span><br><span class="line">            <span class="keyword">if</span> ([msg.envelope.ack intValue] == 1) &#123;</span><br><span class="line">                [self sendAckMsg:msg.envelope.uid]; //普通消息需要回执</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didReceivedMessage:)]) &#123;</span><br><span class="line">                [_delegate didReceivedMessage:msg];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">type</span> == MSG_TYPE_STATE) // ack  返回  暂不处理</span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">type</span> &gt;= 100 &amp;&amp; <span class="built_in">type</span> &lt;= 111) &#123;</span><br><span class="line">            EMsgMessage *msg = [[EMsgMessage alloc] init];</span><br><span class="line">            msg = [EMsgMessage objectWithKeyValues:dic];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> ([msg.envelope.ack intValue] == 1) &#123;</span><br><span class="line">                [self sendAckMsg:msg.envelope.uid]; //普通消息需要回执</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didReceivedMessage:)]) &#123;</span><br><span class="line">                [_delegate didReceivedMessage:msg];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)sendMessageWithToId:(NSString *)toId</span><br><span class="line">             withTargetType:(MsgType)mTargetType</span><br><span class="line">                      isAck:(BOOL)ack</span><br><span class="line">                withContent:(NSString *)content</span><br><span class="line">                  withAttrs:(NSDictionary *)attrDictionary</span><br><span class="line">            withMessageMark:(NSInteger)tag &#123;</span><br><span class="line">    </span><br><span class="line">    //存储的fromId</span><br><span class="line">  //  NSString * storeFromeId = toId;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    int <span class="built_in">type</span> = mTargetType == SINGLECHAT ? MSG_TYPE_CHAT : MSG_TYPE_GROUP_CHAT;</span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *envelope = [NSMutableDictionary dictionary];</span><br><span class="line">    CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);</span><br><span class="line">    NSString *cfuuidString = (NSString *)CFBridgingRelease(</span><br><span class="line">                                                           CFUUIDCreateString(kCFAllocatorDefault, cfuuid));</span><br><span class="line">    [envelope setObject:cfuuidString forKey:@<span class="string">"id"</span>];</span><br><span class="line">    [envelope setObject:[NSNumber numberWithInt:<span class="built_in">type</span>] forKey:@<span class="string">"type"</span>];</span><br><span class="line">    [envelope setObject:self.jid forKey:@<span class="string">"from"</span>];</span><br><span class="line">    //单聊,需要在信封添加to字段</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">type</span> == 1) &#123;</span><br><span class="line">        [envelope setObject:toId forKey:@<span class="string">"to"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    //群聊,需要在信封添加gid字段</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">type</span> == 2) &#123;</span><br><span class="line">        [envelope setObject:toId forKey:@<span class="string">"gid"</span>];</span><br><span class="line">        [envelope setObject:[NSString stringWithFormat:@<span class="string">"group%@@"</span>,toId] forKey:@<span class="string">"from"</span>];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *root = [NSMutableDictionary dictionaryWithCapacity:1];</span><br><span class="line">    [root setObject:envelope forKey:@<span class="string">"envelope"</span>];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *payload = [NSMutableDictionary dictionary];</span><br><span class="line">    [payload setObject:content forKey:@<span class="string">"content"</span>];</span><br><span class="line">    <span class="keyword">if</span> (attrDictionary) &#123;</span><br><span class="line">        QYQUserInfoModel *userModel = [QYQToolsMethod fetchUserInfo];</span><br><span class="line">        </span><br><span class="line">        NSMutableDictionary *attDic =</span><br><span class="line">        [[NSMutableDictionary alloc] initWithDictionary:attrDictionary];</span><br><span class="line">        <span class="keyword">if</span> (userModel.user.photo) &#123;</span><br><span class="line">            [attDic setObject:userModel.user.photo forKey:@<span class="string">"messageFromHeaderUrl"</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (userModel.user.nickName) &#123;</span><br><span class="line">            [attDic setObject:userModel.user.nickName forKey:@<span class="string">"messageFromNickName"</span>];</span><br><span class="line">        &#125;<span class="keyword">if</span>(userModel.user.age)</span><br><span class="line">        &#123;</span><br><span class="line">            [attDic setObject:[NSString stringWithFormat:@<span class="string">"%ld"</span>,(long)userModel.user.age] forKey:@<span class="string">"messageFromAge"</span>];</span><br><span class="line">        &#125;<span class="keyword">if</span> (userModel.user.sex) &#123;</span><br><span class="line">            [attDic setObject:userModel.user.sex forKey:@<span class="string">"messageFromSex"</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        [payload setObject:attDic forKey:@<span class="string">"attrs"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    [root setObject:payload forKey:@<span class="string">"payload"</span>];</span><br><span class="line">    </span><br><span class="line">    //群组重新拼装envelope</span><br><span class="line">    NSMutableDictionary * reGroupDic = root;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">type</span> == 2) &#123;</span><br><span class="line">        NSMutableDictionary * reDic = envelope;</span><br><span class="line">        [reDic setObject:self.jid forKey:@<span class="string">"from"</span>];</span><br><span class="line">        NSMutableDictionary * reGroupDic = root;</span><br><span class="line">        [reGroupDic setObject:reDic forKey:@<span class="string">"envelope"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //转化成消息实例</span><br><span class="line">    EMsgMessage * storeMessage = [EMsgMessage objectWithKeyValues:root];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    //把消息存入数据库 begin</span><br><span class="line">    NSRange chechStrRange = [toId rangeOfString:@<span class="string">"@"</span>];</span><br><span class="line">    <span class="keyword">if</span> (chechStrRange.location != NSNotFound) &#123;</span><br><span class="line">        NSString * chatterId = [toId substringToIndex:chechStrRange.location];</span><br><span class="line">        storeMessage.isReaded = @<span class="string">"yes"</span>;</span><br><span class="line">        storeMessage.isSendFail = NO;</span><br><span class="line">//        EMsgEnvelope * envelope = [[EMsgEnvelope alloc] init];</span><br><span class="line">//        envelope.type = @<span class="string">"1"</span>;</span><br><span class="line">//        envelope.from = storeFromeId;</span><br><span class="line">//        storeMessage.envelope = envelope;</span><br><span class="line">//        EMsgAttrs *attrs = [[EMsgAttrs alloc] init];</span><br><span class="line">//        <span class="keyword">if</span>(attrDictionary[@<span class="string">"toAge"</span>])</span><br><span class="line">//        &#123;</span><br><span class="line">//            attrs.messageFromAge = attrDictionary[@<span class="string">"toAge"</span>];</span><br><span class="line">//        &#125;<span class="keyword">if</span>(attrDictionary[@<span class="string">"toSex"</span>])</span><br><span class="line">//        &#123;</span><br><span class="line">//            attrs.messageFromSex = attrDictionary[@<span class="string">"toSex"</span>];</span><br><span class="line">//        &#125;<span class="keyword">if</span>(attrDictionary[@<span class="string">"toName"</span>])</span><br><span class="line">//        &#123;</span><br><span class="line">//            attrs.messageFromNickName = attrDictionary[@<span class="string">"toName"</span>];</span><br><span class="line">//        &#125;<span class="keyword">if</span>(attrDictionary[@<span class="string">"toPhoto"</span>])</span><br><span class="line">//        &#123;</span><br><span class="line">//            attrs.messageFromHeaderUrl = attrDictionary[@<span class="string">"toPhoto"</span>];</span><br><span class="line">//        &#125;</span><br><span class="line">//        storeMessage.payload.attrs = attrs;</span><br><span class="line">        storeMessage.envelope.ct = [QYQToolsMethod creatSSTimastmap];</span><br><span class="line">        storeMessage.isMe = YES;</span><br><span class="line">        [[FMDBManger shareInstance] insertOneMessage:storeMessage withChatter:chatterId];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">type</span> == 2) &#123;</span><br><span class="line">        NSString * chatterId = [NSString stringWithFormat:@<span class="string">"group%@"</span>,toId];</span><br><span class="line">        storeMessage.envelope.ct = [QYQToolsMethod creatSSTimastmap];</span><br><span class="line">        storeMessage.isMe = YES;</span><br><span class="line">        [[FMDBManger shareInstance] insertOneMessage:storeMessage withChatter:chatterId];</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //把消息存入数据 end</span><br><span class="line">    </span><br><span class="line">    NSString *sendcontent =</span><br><span class="line">    [NSString stringWithFormat:@<span class="string">"%@%@"</span>, [root JSONString], END_TAG];</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">type</span> == 2) &#123;</span><br><span class="line">        sendcontent = [NSString stringWithFormat:@<span class="string">"%@%@"</span>, [reGroupDic JSONString], END_TAG];</span><br><span class="line">    &#125;</span><br><span class="line">    NSData *data = [sendcontent dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    NSInteger messageTag = [storeMessage.envelope.ct integerValue];</span><br><span class="line">    //此处替换tag方便更新消息是否发送成功，更新数据库标识</span><br><span class="line">    @try &#123;</span><br><span class="line">        [asyncSocket writeData:data withTimeout:-1 tag:messageTag];</span><br><span class="line">    &#125; @catch (NSException *exception) &#123;</span><br><span class="line">        <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(didSendMessageFailed:)]) //发送数据失败</span><br><span class="line">        &#123;</span><br><span class="line">            [_delegate didSendMessageFailed:messageTag];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(</span><br><span class="line">                                                             didSendMessageSuccessed:)]) //发送数据成功</span><br><span class="line">    &#123;</span><br><span class="line">        [_delegate didSendMessageSuccessed:tag];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err &#123;</span><br><span class="line">    <span class="keyword">if</span> (_delegate &amp;&amp; [_delegate respondsToSelector:@selector(willDisconnectWithError:)]) &#123;</span><br><span class="line">        [_delegate willDisconnectWithError:err];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (void)onSocketDidDisconnect:(AsyncSocket *)sock &#123;</span><br><span class="line">    NSLog(@<span class="string">"sock = %@"</span>, sock);</span><br><span class="line">    <span class="keyword">if</span> (hasAuth) //开启断线重连</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (hearttimer != nil) //断线重连过程不发送心跳包</span><br><span class="line">        &#123;</span><br><span class="line">            [hearttimer invalidate];</span><br><span class="line">            hearttimer = nil;</span><br><span class="line">        &#125;</span><br><span class="line">        [self autoReconnect];</span><br><span class="line">    &#125;</span><br><span class="line">    hasAuth = NO;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([_delegate respondsToSelector:@selector(reciveAuthTimeOut)]) &#123;</span><br><span class="line">        [_delegate reciveAuthTimeOut];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (int)isPacketEnd:(NSData *)data &#123;</span><br><span class="line">    <span class="keyword">if</span> (packetdata == nil) &#123;</span><br><span class="line">        packetdata = [[NSMutableData alloc] initWithCapacity:1];</span><br><span class="line">    &#125;</span><br><span class="line">    [packetdata appendData:data];</span><br><span class="line">    NSString *msg =</span><br><span class="line">    [[NSString alloc] initWithData:packetdata encoding:NSUTF8StringEncoding];</span><br><span class="line">    NSRange foundEnd = [msg rangeOfString:END_TAG options:NSBackwardsSearch];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (foundEnd.location != NSNotFound) &#123;</span><br><span class="line">        NSRange foundkill =</span><br><span class="line">        [msg rangeOfString:SERVER_KILL options:NSBackwardsSearch];</span><br><span class="line">        NSRange foundHeart =</span><br><span class="line">        [msg rangeOfString:HEART_BEAT options:NSBackwardsSearch];</span><br><span class="line">        <span class="keyword">if</span> (foundkill.location != NSNotFound) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">return</span> PACKET_KILL;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (foundHeart.location != NSNotFound) &#123;</span><br><span class="line">            <span class="built_in">return</span> PACKET_HEART;</span><br><span class="line">        &#125;</span><br><span class="line">        NSString *msgdictory = [msg substringToIndex:foundEnd.location];</span><br><span class="line">        NSDictionary *dic = [msgdictory objectFromJSONString];</span><br><span class="line">        <span class="keyword">if</span> ([dic isKindOfClass:[NSDictionary class]]) &#123;</span><br><span class="line">            <span class="built_in">return</span> PACKET_END;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> PACKET_NOTEND;</span><br><span class="line">&#125;</span><br><span class="line">/*发送消息回执*/</span><br><span class="line">- (void)sendAckMsg:(NSString *)msgid &#123;</span><br><span class="line">    NSMutableDictionary *envelope = [NSMutableDictionary dictionary];</span><br><span class="line">    <span class="keyword">if</span>(msgid)</span><br><span class="line">    &#123;</span><br><span class="line">        [envelope setObject:msgid forKey:@<span class="string">"id"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    [envelope setObject:[NSNumber numberWithInt:MSG_TYPE_STATE] forKey:@<span class="string">"type"</span>];</span><br><span class="line">    [envelope setObject:SERVER_ACK forKey:@<span class="string">"to"</span>];</span><br><span class="line">    [envelope setObject:self.jid forKey:@<span class="string">"from"</span>];</span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary *root = [NSMutableDictionary dictionaryWithCapacity:1];</span><br><span class="line">    [root setObject:envelope forKey:@<span class="string">"envelope"</span>];</span><br><span class="line">    </span><br><span class="line">    NSString *sendcontent =</span><br><span class="line">    [NSString stringWithFormat:@<span class="string">"%@%@"</span>, [root JSONString], END_TAG];</span><br><span class="line">    NSData *data = [sendcontent dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    @try &#123;</span><br><span class="line">        [asyncSocket writeData:data withTimeout:-1 tag:0];</span><br><span class="line">    &#125; @catch (NSException *exception) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/*断线自动重连*/</span><br><span class="line">- (void)autoReconnect &#123;</span><br><span class="line">    </span><br><span class="line">    [self stopReconnect];</span><br><span class="line">    recnnecttimer =</span><br><span class="line">    [NSTimer scheduledTimerWithTimeInterval:RECONNECT_FREQ</span><br><span class="line">                                     target:self</span><br><span class="line">                                   selector:@selector(time_to_connect)</span><br><span class="line">                                   userInfo:nil</span><br><span class="line">                                    repeats:YES];</span><br><span class="line">    </span><br><span class="line">    [[NSRunLoop currentRunLoop] addTimer:recnnecttimer</span><br><span class="line">                                 forMode:NSRunLoopCommonModes];</span><br><span class="line">&#125;</span><br><span class="line">- (void)stopReconnect &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (recnnecttimer != nil) &#123;</span><br><span class="line">        [recnnecttimer invalidate];</span><br><span class="line">        recnnecttimer = nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (void)time_to_connect &#123;</span><br><span class="line">    <span class="keyword">if</span> ([self isLogOut])</span><br><span class="line">        <span class="built_in">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([self connectServer:self.jid</span><br><span class="line">               withPassword:self.pwd</span><br><span class="line">                   withHost:self.kHost</span><br><span class="line">                   withPort:self.kPort]) //连接成功 断开自动重连</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (recnnecttimer != nil) &#123;</span><br><span class="line">            [recnnecttimer invalidate];</span><br><span class="line">            recnnecttimer = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/*心跳包*/</span><br><span class="line">- (void)sendHeartPacket &#123;</span><br><span class="line">    [self stopHeartPacket];</span><br><span class="line">    hearttimer =</span><br><span class="line">    [NSTimer scheduledTimerWithTimeInterval:HEART_BEAT_FREQ</span><br><span class="line">                                     target:self</span><br><span class="line">                                   selector:@selector(time_to_send_heart)</span><br><span class="line">                                   userInfo:nil</span><br><span class="line">                                    repeats:YES];</span><br><span class="line">    [[NSRunLoop currentRunLoop] addTimer:hearttimer forMode:NSRunLoopCommonModes];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)stopHeartPacket &#123;</span><br><span class="line">    <span class="keyword">if</span> (hearttimer != nil) &#123;</span><br><span class="line">        [hearttimer invalidate];</span><br><span class="line">        hearttimer = nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)time_to_send_heart &#123;</span><br><span class="line">    <span class="keyword">if</span> ([self isLogOut])</span><br><span class="line">        <span class="built_in">return</span>;</span><br><span class="line">    </span><br><span class="line">    NSData *data = [HEART_BEAT dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    @try &#123;</span><br><span class="line">        Mylog(@<span class="string">"EMsgHeart -----------------------------------------------------"</span>);</span><br><span class="line">        [asyncSocket writeData:data withTimeout:-1 tag:0];</span><br><span class="line">    &#125; @catch (NSException *exception) &#123;</span><br><span class="line">        [self closeSocket];</span><br><span class="line">        [self autoReconnect];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AsyncSocket/" rel="tag"># AsyncSocket</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/01/iOS基础面试题汇总/" rel="next" title="iOS基础面试题汇总">
+                <i class="fa fa-chevron-left"></i> iOS基础面试题汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/即时通讯AsyncSocket消息信封/" rel="prev" title="即时通讯AsyncSocket消息信封">
+                即时通讯AsyncSocket消息信封 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="半临渊" />
+            
+              <p class="site-author-name" itemprop="name">半临渊</p>
+              <p class="site-description motion-element" itemprop="description">十步杀一人 千里不留行</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Shineforword" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dreamlingclear@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com/" title="Baidu" target="_blank">Baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AsyncSocket详解"><span class="nav-number">1.</span> <span class="nav-text">AsyncSocket详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法详解"><span class="nav-number">2.</span> <span class="nav-text">使用方法详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明socket变量："><span class="nav-number">2.1.</span> <span class="nav-text">声明socket变量：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接-长连接"><span class="nav-number">2.2.</span> <span class="nav-text">连接(长连接)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#心跳"><span class="nav-number">2.3.</span> <span class="nav-text">心跳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#断开连接"><span class="nav-number">2.4.</span> <span class="nav-text">断开连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重连"><span class="nav-number">2.5.</span> <span class="nav-text">重连</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送数据："><span class="nav-number">2.6.</span> <span class="nav-text">发送数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收数据："><span class="nav-number">2.7.</span> <span class="nav-text">接收数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【备注】关于NSData对象"><span class="nav-number">2.8.</span> <span class="nav-text">【备注】关于NSData对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#h"><span class="nav-number">2.8.1.</span> <span class="nav-text">.h</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">半临渊</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

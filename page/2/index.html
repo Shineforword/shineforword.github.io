@@ -272,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南四/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程四/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -291,7 +291,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南四/" itemprop="url">iOS指南四(推送技术原理)</a></h1>
+                <a class="post-title-link" href="/2018/01/01/多线程四/" itemprop="url">多线程四(NSOperation)</a></h1>
         
 
         <div class="post-meta">
@@ -303,7 +303,505 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T11:33:38+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T17:40:39+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>NSOperation简介<br>NSOperation是苹果提供给我们的一套多线程解决方案。实际上NSOperation是基于GCD更高一层的封装，但是比GCD更简单易用、代码可读性也更高。</p>
+<p>NSOperation需要配合NSOperationQueue来实现多线程。因为默认情况下，NSOperation单独使用时系统同步执行操作，并没有开辟新线程的能力，只有配合NSOperationQueue才能实现异步执行。</p>
+<p>因为NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。NSOperation实现多线程的使用步骤分为三步：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/01/多线程四/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/01/多线程三/" itemprop="url">多线程三(pthread NSThread)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T17:23:56+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>pthread简单介绍下，pthread是一套通用的多线程的API，可以在Unix / Linux / Windows 等系统跨平台使用，使用C语言编写，需要程序员自己管理线程的生命周期，使用难度较大，所以我们在iOS开发中几乎不使用pthread，简单了解下就可以了。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/01/多线程三/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/01/多线程二/" itemprop="url">多线程二(线程之间的通信 GCD的其他方法)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T17:11:46+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>iOS开发过程中，我们一般在主线程里边进行UI刷新，例如：点击、滚动、拖拽等事件。我们通常把一些耗时的操作放在其他线程，比如说图片下载、文件上传等耗时操作。而当我们有时候在其他线程完成了耗时操作时，需要回到主线程，那么就用到了线程之间的通讯。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/01/多线程二/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/01/多线程一/" itemprop="url">多线程一</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T16:17:48+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>多线程（英语：multithreading），是指从软件或者硬件上实现多个线程并发执行的技术。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程，进而提升整体处理性能。具有这种能力的系统包括对称多处理机、多核心处理器以及芯片级多处理（Chip-level multithreading）或同时多线程（Simultaneous multithreading）处理器。[1]  在一个程序中，这些独立运行的程序片段叫作“线程”（Thread），利用它编程的概念就叫作“多线程处理（Multithreading）”。具有多线程能力的计算机因有硬件支持而能够在同一时间执行多于一个线程（台湾译作“执行绪”），进而提升整体处理性能。<br><a href="https://baike.baidu.com/item/%E5%A4%9A%E7%BA%BF%E7%A8%8B/1190404?fr=aladdin" target="_blank" rel="noopener">多线程(百度百科)</a><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/01/多线程一/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十四/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/iOS指南十四/" itemprop="url">iOS指南十四(使用drawRect有什么影响 )</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T15:45:21+08:00">
                 2017-12-31
               </time>
             
@@ -342,10 +840,10 @@
 
       
         
-          <p>简介:<br>当我们开发需要和服务器交互的应用程序时，基本上都需要获取服务器端的数据，要获取服务器上不定时更新的信息，一般来说有两种方法：第一种是客户端使用Pull（拉）的方式，就是隔一段时间就去服务器上获取一下信息，看是否有更新的信息出现。<br>第二种就是 服务器使用Push（推送）的方式，当服务器端有新信息了，则把最新的信息Push到客户端上。这样，客户端就能自动的接收到消息。 <br>虽然Pull和Push两种方式都能实现获取服务器端更新信息的功能，但是明显来说Push方式比Pull方式更优越。<br>因为Pull方式更费客户端的网络流量，更主要的是费电量，还需要我们的程序不停地去监测服务端的变化。 <br>
+          <p>drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。<br>这个方法的主要作用是根据传入的 rect 来绘制图像 <a href="https://developer.apple.com/documentation/uikit/uiview#//apple_ref/occ/instm/UIView/drawRect:" target="_blank" rel="noopener">参见文档</a>. 这个方法的默认实现没有做任何事情, 我们可以在这个方法中使用 Core Graphics 和 UIKit 来绘制视图的内容.<br>这个方法的调用机制也是非常特别. 当你调用 setNeedsDisplay 方法时, UIKit 将会把当前图层标记为 dirty, 但还是会显示原来的内容, 直到下一次的视图渲染周期, 才会为标记为 dirty 的图层重新建立 Core Graphics 上下文, 然后将内存中的数据恢复出来, 再使用 CGContextRef 进行绘制.</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南四/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南十四/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -396,7 +894,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南三/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十三/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -415,7 +913,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/iOS指南三/" itemprop="url">iOS指南三(HTTP 长链 短链)</a></h1>
+                <a class="post-title-link" href="/2017/12/31/iOS指南十三/" itemprop="url">iOS指南十三(NSURLSession与NSURLConnection区别)</a></h1>
         
 
         <div class="post-meta">
@@ -427,7 +925,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T10:35:37+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T15:36:38+08:00">
                 2017-12-31
               </time>
             
@@ -466,10 +964,10 @@
 
       
         
-          <p>简介:<br>如何用HTTP实现长连接<br>[推送技术原理]<a href="/2017/12/31/iOS指南四/" title="iOS指南四(推送技术原理)">iOS指南四(推送技术原理)</a></p>
+          <p>NSURLSession是NSURLConnection的替代者，在2013年苹果全球开发者大会（WWDC2013）随ios7一起发布，是对NSURLConnection进行了重构优化后的新的网络访问接口。从iOS9.0开始， NSURLConnection中发送请求的两个方法已过期（同步请求，异步请求），初始化网络连接（initWithRequest: delegate:）的方法也被设置为过期，系统不再推荐使用，建议使用NSURLSession发送网络请求。<br><a href="http://www.cnblogs.com/kakaluote123/articles/5426923.html" target="_blank" rel="noopener">http://www.cnblogs.com/kakaluote123/articles/5426923.html</a><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/31/iOS指南三/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南十三/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -520,7 +1018,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/iOS指南二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -539,7 +1037,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/30/iOS指南二/" itemprop="url">线程池原理</a></h1>
+                <a class="post-title-link" href="/2017/12/31/iOS指南十二/" itemprop="url">iOS指南十二(ARC工作原理  autorelease原理 isa指针作用 数组去重)</a></h1>
         
 
         <div class="post-meta">
@@ -551,8 +1049,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T19:17:10+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T14:49:55+08:00">
+                2017-12-31
               </time>
             
 
@@ -590,11 +1088,10 @@
 
       
         
-          <p>在面向对象编程中，创建和销毁对象是很费时间的，因为创建一个对象要获取内存资源或者其它更多资源。在Java中更是如此，虚拟机将试图跟踪每一个对象，以便能够在对象销毁后进行垃圾回收。<br>所以提高服务程序效率的一个手段就是尽可能减少创建和销毁对象的次数，特别是一些很耗资源的对象创建和销毁。如何利用已有对象来服务就是一个需要解决的关键问题，其实这就是一些”池化资源”技术产生的原因。</p>
-<p>多线程技术主要解决处理器单元内多个线程执行的问题，它可以显著减少处理器单元的闲置时间，增加处理器单元的吞吐能力。假设一个服务器完成一项任务所需时间为：T1 创建线程时间，T2 在线程中执行任务的时间，T3 销毁线程时间。<br>如果：T1 + T3 远大于 T2，则可以采用线程池，以提高服务器性能。</p>
+          <p>Automatic Reference Counting，自动引用计数，即ARC,ARC会自动帮你插入retain和release语句。ARC编译器有两部分，分别是前端编译器和优化器。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/30/iOS指南二/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南十二/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -645,7 +1142,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/iOS指南一/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -664,7 +1161,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/30/iOS指南一/" itemprop="url">iOS指南(锁、锁的性能比较)</a></h1>
+                <a class="post-title-link" href="/2017/12/31/iOS指南十一/" itemprop="url">iOS指南十一(iOS缓存的理解)</a></h1>
         
 
         <div class="post-meta">
@@ -676,8 +1173,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T18:25:56+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T14:19:46+08:00">
+                2017-12-31
               </time>
             
 
@@ -715,11 +1212,10 @@
 
       
         
-          <p>在计算机科学中，锁是一种同步机制，用于在存在多线程的环境中实施对资源的访问限制。你可以理解成它用于排除并发的一种策略。在iOS中，锁分为递归锁、条件锁、分布式锁、一般锁（这里是看着NSLock类里面的分类划分的）。</p>
-<p>锁的作用: 就是为了防止在多线程(多任务)的情况下对共享资源(临界资源)的脏读或者脏写。也可以理解为：执行多线程时用于强行限制资源访问的同步机制，即并发控制中保证互斥的要求。</p>
+          <p><a href="http://www.cnblogs.com/qiqibo/p/3520635.html" target="_blank" rel="noopener">iOS缓存机制详解</a><br>应用需要离线工作的主要原因就是改善应用所表现出的性能。将应用内容缓存起来就可以支持离线。我们可以用两种不同的缓存来使应用离线工作。第一种是<strong>按需缓存</strong>，这种情况下应用缓存起请求应答，就和Web浏览器的工作原理一样；第二种是<strong>预缓存</strong>，这种情况是缓存全部内容（或者最近n条记录）以便离线访问。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/30/iOS指南一/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南十一/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -770,7 +1266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/内购具体实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南十/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -789,7 +1285,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/30/内购具体实现/" itemprop="url">内购具体实现</a></h1>
+                <a class="post-title-link" href="/2017/12/31/iOS指南十/" itemprop="url">iOS指南十(weak的实现原理、HTTPS的加密原理)</a></h1>
         
 
         <div class="post-meta">
@@ -801,8 +1297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T17:40:25+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:44:45+08:00">
+                2017-12-31
               </time>
             
 
@@ -840,11 +1336,11 @@
 
       
         
-          <p>内购的流程:</p>
-<p>(1)用户先拿到购买产品的单子(2)拿着单子去苹果那里交钱，交完钱让苹果在单子上盖个章(3)拿着盖了章的单子传给自己的服务器来验证是否真的支付成功(4)根据服务器返回的信息做具体的处理</p>
+          <p><a href="https://www.jianshu.com/p/13c4fb1cedea" target="_blank" rel="noopener">iOS 底层解析weak的实现原理</a></p>
+<p>很少有人知道weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址数组。更多人的人只是知道weak是弱引用，所引用对象的计数器不会加一，并在引用对象被释放的时候自动被设置为nil。通常用于解决循环引用问题。但现在单知道这些已经不足以应对面试了，好多公司会问weak的原理。weak的原理是什么呢？</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/30/内购具体实现/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南十/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -895,7 +1391,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/30/苹果内购/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/iOS指南九/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="半临渊">
@@ -914,7 +1410,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/30/苹果内购/" itemprop="url">苹果内购</a></h1>
+                <a class="post-title-link" href="/2017/12/31/iOS指南九/" itemprop="url">iOS指南九(本地化持久方案)</a></h1>
         
 
         <div class="post-meta">
@@ -926,8 +1422,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-30T15:34:14+08:00">
-                2017-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T13:25:40+08:00">
+                2017-12-31
               </time>
             
 
@@ -965,261 +1461,10 @@
 
       
         
-          <p>iOS内购的集成与添加新的内购项目</p>
-<p>参考链接:</p>
-<p><a href="https://www.jianshu.com/p/cd3582e28ddb" target="_blank" rel="noopener">https://www.jianshu.com/p/cd3582e28ddb</a></p>
-<p><a href="https://www.jianshu.com/p/0311d906aa11" target="_blank" rel="noopener">https://www.jianshu.com/p/0311d906aa11</a><br>
+          <p><a href="https://casatwy.com/iosying-yong-jia-gou-tan-ben-di-chi-jiu-hua-fang-an-ji-dong-tai-bu-shu.html" target="_blank" rel="noopener">iOS应用架构谈 本地持久化方案及动态部署</a><br>在有需要持久化需求的时候，我们有非常多的方案可供选择：NSUserDefault、KeyChain、File，以及基于数据库的无数子方案。因此，当有需要持久化的需求的时候，我们首先考虑的是应该采用什么手段去进行持久化。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/30/苹果内购/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/MarkDown-基本语法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="半临渊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大漠楼兰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/29/MarkDown-基本语法/" itemprop="url">MarkDown 语法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T18:10:10+08:00">
-                2017-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> Markdown 的目标是易读易写兼容,特殊字符自动转换.Markdown的语法由一些符号组成,其作用为了使用方便一目了然.是一种适用于网络的书写语言.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/29/MarkDown-基本语法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="半临渊">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大漠楼兰的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/28/hello-world/" itemprop="url">Hexo 基本操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T19:36:57+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>!<br>This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info.  If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/28/hello-world/#more" rel="contents">
+            <a class="btn" href="/2017/12/31/iOS指南九/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1261,7 +1506,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1311,7 +1556,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1324,7 +1569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1407,7 +1652,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

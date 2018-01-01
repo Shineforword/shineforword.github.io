@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="多线程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pthread简单介绍下，pthread是一套通用的多线程的API，可以在Unix / Linux / Windows 等系统跨平台使用，使用C语言编写，需要程序员自己管理线程的生命周期，使用难度较大，所以我们在iOS开发中几乎不使用pthread，简单了解下就可以了。">
+<meta name="keywords" content="多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程三(pthread NSThread)">
+<meta property="og:url" content="http://yoursite.com/2018/01/01/多线程三/index.html">
+<meta property="og:site_name" content="大漠楼兰的博客">
+<meta property="og:description" content="pthread简单介绍下，pthread是一套通用的多线程的API，可以在Unix / Linux / Windows 等系统跨平台使用，使用C语言编写，需要程序员自己管理线程的生命周期，使用难度较大，所以我们在iOS开发中几乎不使用pthread，简单了解下就可以了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1877784-18eab813719d579d.png?imageMogr2/auto-orient/">
+<meta property="og:updated_time" content="2018-01-01T12:27:50.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程三(pthread NSThread)">
+<meta name="twitter:description" content="pthread简单介绍下，pthread是一套通用的多线程的API，可以在Unix / Linux / Windows 等系统跨平台使用，使用C语言编写，需要程序员自己管理线程的生命周期，使用难度较大，所以我们在iOS开发中几乎不使用pthread，简单了解下就可以了。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1877784-18eab813719d579d.png?imageMogr2/auto-orient/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/01/多线程三/"/>
+
+
+
+
+
+  <title>多线程三(pthread NSThread) | 大漠楼兰的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">大漠楼兰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/01/多线程三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="半临渊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大漠楼兰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多线程三(pthread NSThread)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T17:23:56+08:00">
+                2018-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>pthread简单介绍下，pthread是一套通用的多线程的API，可以在Unix / Linux / Windows 等系统跨平台使用，使用C语言编写，需要程序员自己管理线程的生命周期，使用难度较大，所以我们在iOS开发中几乎不使用pthread，简单了解下就可以了。<br><a id="more"></a></p>
+<h2 id="pthread的使用方法"><a href="#pthread的使用方法" class="headerlink" title="pthread的使用方法"></a>pthread的使用方法</h2><p>首先要包含头文件#import <pthread.h><br>其次要创建线程，并开启线程执行任务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 创建线程——定义一个pthread_t类型变量</span><br><span class="line">pthread_t thread;</span><br><span class="line">// 开启线程——执行任务</span><br><span class="line">pthread_create(&amp;thread, NULL, run, NULL);</span><br><span class="line"></span><br><span class="line">void * run(void *param)    // 新线程调用方法，里边为需要执行的任务</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@<span class="string">"%@"</span>, [NSThread currentThread]);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></pthread.h></p>
+<p>pthread_create(&amp;thread, NULL, run, NULL); 中各项参数含义：</p>
+<pre><code>第一个参数&amp;thread是线程对象
+第二个和第四个是线程属性，可赋值NULL
+第三个run表示指向函数的指针(run对应函数里是需要在新线程中执行的任务)
+</code></pre><h2 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h2><p>NSThread是苹果官方提供的，使用起来比pthread更加面向对象，简单易用，可以直接操作线程对象。不过也需要需要程序员自己管理线程的生命周期(主要是创建)，我们在开发的过程中偶尔使用NSThread。比如我们会经常调用[NSThread currentThread]来显示当前的进程信息。</p>
+<h3 id="创建、启动线程"><a href="#创建、启动线程" class="headerlink" title="创建、启动线程"></a>创建、启动线程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">先创建线程，再启动线程</span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];</span><br><span class="line">[thread start];    // 线程一启动，就会在线程thread中执行self的run方法</span><br><span class="line"></span><br><span class="line">创建线程后自动启动线程</span><br><span class="line">[NSThread detachNewThreadSelector:@selector(run) toTarget:self withObject:nil];</span><br><span class="line"></span><br><span class="line">隐式创建并启动线程</span><br><span class="line">[self performSelectorInBackground:@selector(run) withObject:nil];</span><br></pre></td></tr></table></figure>
+<h3 id="线程相关用法"><a href="#线程相关用法" class="headerlink" title="线程相关用法"></a>线程相关用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 获得主线程</span><br><span class="line">+ (NSThread *)mainThread;    </span><br><span class="line"></span><br><span class="line">// 判断是否为主线程(对象方法)</span><br><span class="line">- (BOOL)isMainThread;</span><br><span class="line"></span><br><span class="line">// 判断是否为主线程(类方法)</span><br><span class="line">+ (BOOL)isMainThread;    </span><br><span class="line"></span><br><span class="line">// 获得当前线程</span><br><span class="line">NSThread *current = [NSThread currentThread];</span><br><span class="line"></span><br><span class="line">// 线程的名字——setter方法</span><br><span class="line">- (void)setName:(NSString *)n;    </span><br><span class="line"></span><br><span class="line">// 线程的名字——getter方法</span><br><span class="line">- (NSString *)name;</span><br></pre></td></tr></table></figure>
+<h3 id="线程状态控制方法"><a href="#线程状态控制方法" class="headerlink" title="线程状态控制方法"></a>线程状态控制方法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">启动线程方法</span><br><span class="line"></span><br><span class="line">- (void)start;</span><br><span class="line">// 线程进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</span><br><span class="line"></span><br><span class="line">    阻塞（暂停）线程方法</span><br><span class="line"></span><br><span class="line">+ (void)sleepUntilDate:(NSDate *)date;</span><br><span class="line">+ (void)sleepForTimeInterval:(NSTimeInterval)ti;</span><br><span class="line">// 线程进入阻塞状态</span><br><span class="line"></span><br><span class="line">    强制停止线程</span><br><span class="line"></span><br><span class="line">+ (void)<span class="built_in">exit</span>;</span><br><span class="line">// 线程进入死亡状态</span><br></pre></td></tr></table></figure>
+<h3 id="线程的状态转换"><a href="#线程的状态转换" class="headerlink" title="线程的状态转换"></a>线程的状态转换</h3><p>如图所示<br><img src="https://upload-images.jianshu.io/upload_images/1877784-18eab813719d579d.png?imageMogr2/auto-orient/" alt=""></p>
+<p><a href="https://www.jianshu.com/p/cbaeea5368b1" target="_blank" rel="noopener">https://www.jianshu.com/p/cbaeea5368b1</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/01/多线程二/" rel="next" title="多线程二(线程之间的通信 GCD的其他方法)">
+                <i class="fa fa-chevron-left"></i> 多线程二(线程之间的通信 GCD的其他方法)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/多线程四/" rel="prev" title="多线程四(NSOperation)">
+                多线程四(NSOperation) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="半临渊" />
+            
+              <p class="site-author-name" itemprop="name">半临渊</p>
+              <p class="site-description motion-element" itemprop="description">十步杀一人 千里不留行</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Shineforword" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dreamlingclear@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/yourname" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com/" title="Baidu" target="_blank">Baidu</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.google.com/" title="Google" target="_blank">Google</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pthread的使用方法"><span class="nav-number">1.</span> <span class="nav-text">pthread的使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSThread"><span class="nav-number">2.</span> <span class="nav-text">NSThread</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建、启动线程"><span class="nav-number">2.1.</span> <span class="nav-text">创建、启动线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程相关用法"><span class="nav-number">2.2.</span> <span class="nav-text">线程相关用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程状态控制方法"><span class="nav-number">2.3.</span> <span class="nav-text">线程状态控制方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的状态转换"><span class="nav-number">2.4.</span> <span class="nav-text">线程的状态转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">半临渊</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
