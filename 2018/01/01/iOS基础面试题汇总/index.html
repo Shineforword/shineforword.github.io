@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="大漠楼兰的博客">
 <meta property="og:description" content="iOS面试题汇总">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-01T12:52:59.396Z">
+<meta property="og:updated_time" content="2018-01-02T11:37:57.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS基础面试题汇总">
 <meta name="twitter:description" content="iOS面试题汇总">
@@ -342,6 +342,8 @@
       
         <p><a href="https://www.jianshu.com/p/9b40c7a8ca52" target="_blank" rel="noopener">iOS面试题汇总</a></p>
 <a id="more"></a>
+<h2 id="dynamic与-synthesize的区别"><a href="#dynamic与-synthesize的区别" class="headerlink" title="@dynamic与@synthesize的区别"></a>@dynamic与@synthesize的区别</h2><p>@property有两个对应的词，一个是@synthesize，一个是@dynamic。如果@synthesize和@dynamic都没写，那么默认的就是@syntheszie var = _var;<br>@synthesize的语义是如果你没有手动实现setter方法和getter方法，那么编译器会自动为你加上这两个方法。<br>@dynamic告诉编译器,属性的setter与getter方法由用户自己实现，不自动生成。（当然对于readonly的属性只需提供getter即可）。假如一个属性被声明为@dynamic var，然后你没有提供@setter方法和@getter方法，编译的时候没问题，但是当程序运行到instance.var =someVar，由于缺setter方法会导致程序崩溃；或者当运行到 someVar = var时，由于缺getter方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
+
       
     </div>
     
@@ -435,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -537,6 +548,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dynamic与-synthesize的区别"><span class="nav-number">1.</span> <span class="nav-text">@dynamic与@synthesize的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
